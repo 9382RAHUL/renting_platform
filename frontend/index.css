@@ -1,0 +1,13 @@
+
+
+@import "tailwindcss";
+
+/* @tailwind base;
+@tailwind components; */
+@tailwind utilities;
+/* ─────────────────────────────────────────────
+   Academic Curator — Global Styles
+   Tailwind is the primary utility layer.
+   This file adds custom overrides & animations.
+───────────────────────────────────────────── */
+/* ── Custom scrollbar ── */
