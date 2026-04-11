@@ -21,6 +21,11 @@ const listingSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    tags: {
+      type: [String],
+      enum: ["single", "2 sharing", "3 sharing", "4 sharing", "premium", "regular"],
+      required: true,
+    },
     images: {
       type: [String],
       default: [],

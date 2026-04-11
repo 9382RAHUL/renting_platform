@@ -4,18 +4,16 @@ import Listing from "../models/Listing.js";
 // CREATE a new listing
 export const createListing = async (req, res) => {
   try {
-    const { title, price, location, description, images, owner_name, owner_phone } = req.body;
+    const listing = new Listing(req.body);
 
-    // Validate required fields
-    if (!title || !price || !location || !owner_name || !owner_phone) {
+    // Validation
+    if (!listing.title || !listing.price || !listing.location || !listing.owner_name || !listing.owner_phone || !listing.amenities || listing.tags.length === 0) {
       return res.status(400).json({
-        error: "Missing required fields: title, price, location, owner_name, owner_phone"
+        error: "Missing required fields or invalid data"
       });
     }
 
-    const listing = new Listing(req.body);
     await listing.save();
-
     res.status(201).json({
       message: "✅ Listing created successfully",
       listing
@@ -23,7 +21,20 @@ export const createListing = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+}; 
+// Sample listing:
+// {
+//   "title": "2-BHK PG near Jadavpur University",
+//   "price": 5000,
+//   "location": "Jadavpur",
+//   "description": "2 sharing room, WiFi included, Free water & electricity",
+//   "tags": ["2 sharing", "regular"],
+//   "images": ["https://via.placeholder.com/300?text=PG+1"],
+//   "amenities": ["📶Gigabit Wi-Fi", "❄️Full AC", "🧺Laundry Service", "🛡24/7 Security "],
+//   "owner_name": "Rahul Singh",
+//   "owner_phone": "9876543210",
+//   "verified": false
+// }
 
 // GET all listings with filters
 // export const getListings = async (req, res) => {
@@ -102,19 +113,20 @@ export const getListings = async (req, res) => {
     if (style) {
       const normalizedStyle = style
         .toLowerCase()
-        .replace(/-/g, " ")
+        .replace(/-/g, " ") // eg: "2-sharing" -> "2 sharing"
         .trim();
 
       conditions.push({
         description: {
           $regex: normalizedStyle,
           $options: "i"
-        }
+        } // eg: "2 sharing" matches "2-sharing, WiFi, water & electricity included"
       });
     }
 
     // ✅ Combine all filters
     const filter = conditions.length > 0 ? { $and: conditions } : {};
+    console.log("Constructed filter:", JSON.stringify(filter, null, 2));
 
     const listings = await Listing.find(filter).sort({ createdAt: -1 });
 
