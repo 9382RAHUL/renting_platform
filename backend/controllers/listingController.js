@@ -7,7 +7,16 @@ export const createListing = async (req, res) => {
     const listing = new Listing(req.body);
 
     // Validation
-    if (!listing.title || !listing.price || !listing.location || !listing.owner_name || !listing.owner_phone || !listing.amenities || listing.tags.length === 0) {
+    if (
+  !listing.title ||
+  !listing.price ||
+  !listing.location ||
+  !listing.owner_name ||
+  !listing.owner_phone ||
+  !listing.amenities ||
+  !listing.tags ||
+  listing.tags.length === 0
+) {
       return res.status(400).json({
         error: "Missing required fields or invalid data"
       });
