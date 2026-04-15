@@ -29,7 +29,7 @@ export const createListing = async (req, res) => {
     //   console.error("Cloudinary direct upload error:", err);
     // }
 
-    let { title, price, location, owner_name, owner_phone, amenities, tags } = req.body;
+    let { title, price,description, location, owner_name, owner_phone, amenities, tags } = req.body;
 
     // Image file validation (must have one image)
     if (!req.files || req.files.length === 0) {
@@ -39,7 +39,7 @@ export const createListing = async (req, res) => {
     }
 
     // Validation
-    if (!title || !price || !location || !owner_name || !owner_phone || !amenities || !tags) {
+    if (!title || !price || !location || !owner_name || !owner_phone || !amenities || !tags ||!description) {
       return res.status(400).json({
         error: "Missing required fields or invalid data"
       });
@@ -91,6 +91,7 @@ export const createListing = async (req, res) => {
       title,
       price,
       location,
+      description,
       owner_name,
       owner_phone,
       amenities: parsedAmenities,
