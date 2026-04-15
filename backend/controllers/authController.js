@@ -28,6 +28,7 @@ export const signup = async (req, res) => {
       "SECRET_KEY",
       { expiresIn: "7d" }
     );
+    // const token=jwt.sign({ id: user._id, role: user.role }, "SECRET_KEY");
 
     res.status(201).json({
       message: "Signup successful",
@@ -52,7 +53,7 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
-    const token = jwt.sign({ id: user._id }, "SECRET_KEY", {
+    const token = jwt.sign({ id: user._id ,role:user.role}, "SECRET_KEY", {
       expiresIn: "7d"
     });
 

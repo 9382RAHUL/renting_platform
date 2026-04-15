@@ -480,7 +480,7 @@ export default function UserData() {
     location: "",
   });
   const [errors, setErrors] = useState({});
-
+const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(false);
   const fileRef = useRef();
 
@@ -489,25 +489,7 @@ export default function UserData() {
   const pct = ((budget - min) / (max - min)) * 100;
   const sliderBg = `linear-gradient(90deg, #4b3fce ${pct}%, #d9d5ef ${pct}%)`;
   
-//   const uploadToCloudinary = async (file) => {
-//   const formData = new FormData();
-//   formData.append("file", file);
-//   formData.append("upload_preset", "YOUR_UPLOAD_PRESET"); // ⚠️ change
-//   formData.append("cloud_name", "YOUR_CLOUD_NAME");       // ⚠️ change
 
-//   try {
-//     const res = await fetch("https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload", {
-//       method: "POST",
-//       body: formData
-//     });
-
-//     const data = await res.json();
-//     return data.secure_url; // ✅ this is your image URL
-
-//   } catch (error) {
-//     console.error("Cloudinary upload error:", error);
-//   }
-// };
 const navigate=useNavigate();
   const validateForm = () => {
     const newErrors = {};
@@ -540,81 +522,52 @@ const navigate=useNavigate();
 
     return Object.keys(newErrors).length === 0;
   };
-// const saveProfile = async () => {
-//   if (!validateForm()) return;
 
-//   try {
-//     const token = localStorage.getItem("token");
-
-//     const res = await fetch("http://localhost:5000/api/user/profile", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({
-//         fullName: form.fullName,
-//         universityName: form.university,
-//         passoutYear: Number(form.passoutYear),
-//         dob: form.dob,
-//         budget: budget,
-//         preferredLocation: form.location,
-//         profileImg: avatar,
-//       }),
-//     });
-
-//     const data = await res.json();
-//     console.log(data);
-
-    // if (res.ok) {
-    //   setToast(true);
-
-    //   setTimeout(() => {
-    //     navigate("/");
-    //   }, 2000);
-    // }
-
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
 
 const saveProfile = async () => {
   if (!validateForm()) return;
-  const token = localStorage.getItem("token");
 
-  const formData = new FormData();
+  setLoading(true); // 🔥 start loading
 
-  formData.append("fullName", form.fullName);
-  formData.append("universityName", form.university);
-  formData.append("passoutYear", form.passoutYear);
-  formData.append("dob", form.dob);
-  formData.append("budget", budget);
-  formData.append("preferredLocation", form.location);
+  try {
+    const token = localStorage.getItem("token");
 
-  if (avatarFile) {
-    formData.append("profileImg", avatarFile); // ✅ file
-  }
+    const formData = new FormData();
 
-  const res = await fetch("http://localhost:5000/api/user/profile", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`
-      // ❌ DON'T set Content-Type
-    },
-    body: formData
-  });
+    formData.append("fullName", form.fullName);
+    formData.append("universityName", form.university);
+    formData.append("passoutYear", form.passoutYear);
+    formData.append("dob", form.dob);
+    formData.append("budget", budget);
+    formData.append("preferredLocation", form.location);
 
-  const data = await res.json();
-  console.log(data);    if (res.ok) {
+    if (avatarFile) {
+      formData.append("profileImg", avatarFile);
+    }
+
+    const res = await fetch("http://localhost:5000/api/user/profile", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
       setToast(true);
 
       setTimeout(() => {
         navigate("/");
-      }, 2000);
+      }, 1000);
     }
 
-
+  } catch (err) {
+    console.error(err);
+  } finally {
+    setLoading(false); // 🔥 stop loading
+  }
 };
 const handleAvatar = (e) => {
   const file = e.target.files[0];

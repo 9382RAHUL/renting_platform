@@ -38,6 +38,7 @@ export default function CreateListing() {
     price: "",
     availableFrom: "",
   });
+    const [toast, setToast] = useState(false);
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
@@ -128,8 +129,6 @@ export default function CreateListing() {
       if (selectedCategory) tags.push(selectedCategory);
       formData.append("tags", tags.join(",")); // ✅ IMPORTANT
 
-
-
       // // Amenities (array)
       // selectedAmenities.forEach((a) => {
       //   formData.append("amenities", a);
@@ -153,12 +152,19 @@ export default function CreateListing() {
 
       const data = await res.json();
       console.log(data);
+      
+    if (res.ok) {
+      setToast(true);
 
+      setTimeout(() => {
+        setToast(false);
+      }, 2000);
+    }
     } catch (error) {
       console.error(error);
     }
   };
-const navigate=useNavigate();
+  const navigate = useNavigate();
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
@@ -166,12 +172,12 @@ const navigate=useNavigate();
     setSelectedAmenities((prev) =>
       prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a],
     );
-    const handleCancel = () => {
-  const confirmLeave = window.confirm("Discard all changes?");
-  if (confirmLeave) {
-    navigate("/");
-  }
-};
+  const handleCancel = () => {
+    const confirmLeave = window.confirm("Discard all changes?");
+    if (confirmLeave) {
+      navigate("/");
+    }
+  };
 
   // const handleDrop = (e) => {
   //   e.preventDefault();
@@ -192,7 +198,7 @@ const navigate=useNavigate();
     e.preventDefault();
 
     const files = Array.from(e.dataTransfer.files).filter((f) =>
-      f.type.startsWith("image/")
+      f.type.startsWith("image/"),
     );
 
     setUploadedImages((prev) => [...prev, ...files]); // ✅ FILES
@@ -210,13 +216,11 @@ const navigate=useNavigate();
     setPreviewImages((prev) => [...prev, ...urls]); // ✅ for UI only
   };
 
-
   useEffect(() => {
     return () => {
       previewImages.forEach((url) => URL.revokeObjectURL(url));
     };
   }, [previewImages]);
-
 
   return (
     <>
@@ -229,6 +233,30 @@ const navigate=useNavigate();
         body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; }
         input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; }
         input::placeholder { color: #b0adc8; }
+          /* TOAST */
+          .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #3a2f8b;
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 13px 28px;
+    border-radius: 99px;
+    box-shadow: 0 8px 24px rgba(58,47,139,0.3);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1000;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
       `}</style>
 
       <div
@@ -420,139 +448,137 @@ const navigate=useNavigate();
             </p>
 
             {/* Row 1: Property Name + Phone */}
-            
-            
 
-{/* Row 1: Property Name — full width */}
-<div style={{ marginBottom: 24 }}>
-  <label
-    style={{
-      display: "block",
-      fontSize: 13,
-      fontWeight: 600,
-      color: "#2e2a50",
-      marginBottom: 8,
-    }}
-  >
-    Property Name
-  </label>
-  <input
-    name="propertyName"
-    value={form.propertyName}
-    onChange={handleChange}
-    placeholder="e.g., Modern Studio near St. Xavier's"
-    style={{
-      width: "100%",
-      padding: "12px 16px",
-      borderRadius: 12,
-      border: "1.5px solid #e8e4f8",
-      fontSize: 14,
-      color: "#2e2a50",
-      outline: "none",
-      backgroundColor: "#faf9ff",
-      fontFamily: "'Plus Jakarta Sans', sans-serif",
-    }}
-  />
-</div>
+            {/* Row 1: Property Name — full width */}
+            <div style={{ marginBottom: 24 }}>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: "#2e2a50",
+                  marginBottom: 8,
+                }}
+              >
+                Property Name
+              </label>
+              <input
+                name="propertyName"
+                value={form.propertyName}
+                onChange={handleChange}
+                placeholder="e.g., Modern Studio near St. Xavier's"
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  borderRadius: 12,
+                  border: "1.5px solid #e8e4f8",
+                  fontSize: 14,
+                  color: "#2e2a50",
+                  outline: "none",
+                  backgroundColor: "#faf9ff",
+                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                }}
+              />
+            </div>
 
-{/* Row 2: Owner's Full Name + Owner's Phone Number — side by side */}
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 24,
-    marginBottom: 24,
-  }}
->
-  {/* Owner's Full Name */}
-  <div>
-    <label
-      style={{
-        display: "block",
-        fontSize: 13,
-        fontWeight: 600,
-        color: "#2e2a50",
-        marginBottom: 8,
-      }}
-    >
-      Owner's Full Name
-    </label>
-    <input
-      name="owner_name"
-      value={form.owner_name}
-      onChange={handleChange}
-      placeholder="e.g., Jane Doe"
-      style={{
-        width: "100%",
-        padding: "12px 16px",
-        borderRadius: 12,
-        border: "1.5px solid #e8e4f8",
-        fontSize: 14,
-        color: "#2e2a50",
-        outline: "none",
-        backgroundColor: "#faf9ff",
-        fontFamily: "'Plus Jakarta Sans', sans-serif",
-      }}
-    />
-  </div>
+            {/* Row 2: Owner's Full Name + Owner's Phone Number — side by side */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 24,
+                marginBottom: 24,
+              }}
+            >
+              {/* Owner's Full Name */}
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: "#2e2a50",
+                    marginBottom: 8,
+                  }}
+                >
+                  Owner's Full Name
+                </label>
+                <input
+                  name="owner_name"
+                  value={form.owner_name}
+                  onChange={handleChange}
+                  placeholder="e.g., Jane Doe"
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    borderRadius: 12,
+                    border: "1.5px solid #e8e4f8",
+                    fontSize: 14,
+                    color: "#2e2a50",
+                    outline: "none",
+                    backgroundColor: "#faf9ff",
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  }}
+                />
+              </div>
 
-  {/* Owner's Phone Number */}
-  <div>
-    <label
-      style={{
-        display: "block",
-        fontSize: 13,
-        fontWeight: 600,
-        color: "#2e2a50",
-        marginBottom: 8,
-      }}
-    >
-      Owner's Phone Number
-    </label>
-    <div
-      style={{
-        display: "flex",
-        gap: 0,
-        borderRadius: 12,
-        border: "1.5px solid #e8e4f8",
-        overflow: "hidden",
-        backgroundColor: "#faf9ff",
-      }}
-    >
-      <div
-        style={{
-          padding: "12px 16px",
-          backgroundColor: "#ede9fe",
-          fontSize: 14,
-          fontWeight: 700,
-          color: "#4f46e5",
-          display: "flex",
-          alignItems: "center",
-          flexShrink: 0,
-          borderRight: "1.5px solid #e8e4f8",
-        }}
-      >
-        +91
-      </div>
-      <input
-        name="phone"
-        value={form.phone}
-        onChange={handleChange}
-        placeholder="98765 43210"
-        style={{
-          flex: 1,
-          padding: "12px 16px",
-          border: "none",
-          fontSize: 14,
-          color: "#2e2a50",
-          outline: "none",
-          backgroundColor: "transparent",
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
-        }}
-      />
-    </div>
-  </div>
-</div>
+              {/* Owner's Phone Number */}
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: "#2e2a50",
+                    marginBottom: 8,
+                  }}
+                >
+                  Owner's Phone Number
+                </label>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 0,
+                    borderRadius: 12,
+                    border: "1.5px solid #e8e4f8",
+                    overflow: "hidden",
+                    backgroundColor: "#faf9ff",
+                  }}
+                >
+                  <div
+                    style={{
+                      padding: "12px 16px",
+                      backgroundColor: "#ede9fe",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: "#4f46e5",
+                      display: "flex",
+                      alignItems: "center",
+                      flexShrink: 0,
+                      borderRight: "1.5px solid #e8e4f8",
+                    }}
+                  >
+                    +91
+                  </div>
+                  <input
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="98765 43210"
+                    style={{
+                      flex: 1,
+                      padding: "12px 16px",
+                      border: "none",
+                      fontSize: 14,
+                      color: "#2e2a50",
+                      outline: "none",
+                      backgroundColor: "transparent",
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
             {/* </div> */}
             <div style={{ marginBottom: 24 }}>
               <label
@@ -1092,21 +1118,21 @@ const navigate=useNavigate();
               {/* Save as Draft */}
             </button>
             <div style={{ display: "flex", gap: 12 }}>
-           <button
-  onClick={handleCancel}
-  style={{
-    padding: "12px 28px",
-    borderRadius: 12,
-    border: "none",
-    backgroundColor: "#7c6ef8",
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: 600,
-    cursor: "pointer",
-  }}
->
-  Cancel
-</button>
+              <button
+                onClick={handleCancel}
+                style={{
+                  padding: "12px 28px",
+                  borderRadius: 12,
+                  border: "none",
+                  backgroundColor: "#7c6ef8",
+                  color: "#fff",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                Cancel
+              </button>
               <button
                 style={{
                   padding: "12px 28px",
@@ -1181,6 +1207,10 @@ const navigate=useNavigate();
             </div>
           </div>
         </div>
+      </div>
+         {/* TOAST */}
+      <div className={`toast ${toast ? "show" : ""}`}>
+        ✓ Profile saved successfully!
       </div>
     </>
   );

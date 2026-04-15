@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export default function SignupPage() {
 const [showPassword, setShowPassword] = useState(false);
 
@@ -27,7 +27,7 @@ const [showPassword, setShowPassword] = useState(false);
       [e.target.name]: e.target.value
     });
   };
-
+ const navigate=useNavigate();
   // handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +45,7 @@ const [showPassword, setShowPassword] = useState(false);
 
       // store token
       localStorage.setItem("token", res.data.token);
+      navigate("/collectuserdata");
 
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed");
