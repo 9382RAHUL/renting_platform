@@ -301,9 +301,6 @@ export default function Search() {
   .cards-grid {
     grid-template-columns: repeat(2, 500px);
   }
-    .banner-inner{
-    width:67%
-    }
   
 }
 
@@ -599,7 +596,7 @@ function SidebarContent({
         </p>
         <div style={{ maxHeight: 200, overflowY: 'auto', border: '1px solid #e5e3f5', borderRadius: 14, padding: 12, background: '#fff' }}>
           {locationDataset.map((area) => (
-            <div key={area.area_id} style={{ marginBottom: 12 }}>
+            <div key={area.area_id} style={{ marginBottom: 9 }}>
               <button
                 onClick={() => {
                   if (selectedLocations.includes(area.area)) {
@@ -609,12 +606,12 @@ function SidebarContent({
                   }
                 }}
                 style={{
-                  width: '100%', textAlign: 'left', padding: '9px 14px', borderRadius: 12,
+                  width: '100%', textAlign: 'left', padding: '5px 14px', borderRadius: 12,
                   border: selectedLocations.includes(area.area) ? '1.5px solid #c7c3f8' : '1px solid transparent',
                   background: selectedLocations.includes(area.area) ? '#ede9fe' : 'transparent',
                   color: selectedLocations.includes(area.area) ? '#4f46e5' : '#6b7280',
                   fontSize: 13, fontWeight: selectedLocations.includes(area.area) ? 600 : 400,
-                  cursor: 'pointer', marginBottom: 6,
+                  cursor: 'pointer', marginBottom: 3,
                 }}
               >
                 {area.area}
@@ -630,12 +627,12 @@ function SidebarContent({
                     }
                   }}
                   style={{
-                    width: '100%', textAlign: 'left', padding: '6px 14px', borderRadius: 10, marginLeft: 10,
+                    width: '100%', textAlign: 'left', padding: '3px 14px', borderRadius: 10, marginLeft: 10,
                     border: selectedLocations.includes(sub.name) ? '1.5px solid #c7c3f8' : '1px solid transparent',
                     background: selectedLocations.includes(sub.name) ? '#ede9fe' : 'transparent',
                     color: selectedLocations.includes(sub.name) ? '#4f46e5' : '#6b7280',
                     fontSize: 12, fontWeight: selectedLocations.includes(sub.name) ? 600 : 400,
-                    cursor: 'pointer', marginBottom: 4,
+                    cursor: 'pointer', marginBottom: 2,
                   }}
                 >
                   {sub.name}
