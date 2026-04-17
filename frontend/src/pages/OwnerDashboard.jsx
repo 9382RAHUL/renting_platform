@@ -181,6 +181,8 @@ export default function OwnerDashboard() {
 const handleUpdate = async (form) => {
   const token = localStorage.getItem("token");
 
+  console.log("Updating listing with data:", form);
+
   const res = await fetch(
     `http://localhost:5000/api/listings/${editData._id}`,
     {
