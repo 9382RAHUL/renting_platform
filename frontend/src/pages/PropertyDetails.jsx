@@ -1,6 +1,3 @@
-
-
-
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import MainFooter from "../components/MainFooter";
@@ -8,16 +5,47 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const PROXIMITY = [
-  { icon: "🚶", name: "St. Xavier's College", sub: "Main Campus Entrance", time: "4 mins walk" },
-  { icon: "🚌", name: "Loreto College", sub: "Middleton Row", time: "12 mins walk" },
-  { icon: "🚇", name: "Park Street Metro", sub: "North-South Corridor", time: "8 mins walk" },
+  {
+    icon: "🚶",
+    name: "St. Xavier's College",
+    sub: "Main Campus Entrance",
+    time: "4 mins walk",
+  },
+  {
+    icon: "🚌",
+    name: "Loreto College",
+    sub: "Middleton Row",
+    time: "12 mins walk",
+  },
+  {
+    icon: "🚇",
+    name: "Park Street Metro",
+    sub: "North-South Corridor",
+    time: "8 mins walk",
+  },
 ];
 
 const GUIDELINES = [
-  { icon: "🔴", title: "11:00 PM Curfew", desc: "Late entry requires prior guardian notification via the app." },
-  { icon: "👥", title: "Guest Policy", desc: "Day guests allowed in common areas. No overnight visitors." },
-  { icon: "🚭", title: "Zero Tolerance", desc: "No smoking or alcohol permitted within the premises." },
-  { icon: "📋", title: "Weekly Audit", desc: "Regular room maintenance checks for hygiene standards." },
+  {
+    icon: "🔴",
+    title: "11:00 PM Curfew",
+    desc: "Late entry requires prior guardian notification via the app.",
+  },
+  {
+    icon: "👥",
+    title: "Guest Policy",
+    desc: "Day guests allowed in common areas. No overnight visitors.",
+  },
+  {
+    icon: "🚭",
+    title: "Zero Tolerance",
+    desc: "No smoking or alcohol permitted within the premises.",
+  },
+  {
+    icon: "📋",
+    title: "Weekly Audit",
+    desc: "Regular room maintenance checks for hygiene standards.",
+  },
 ];
 
 const PHOTOS = [
@@ -48,45 +76,44 @@ function useBreakpoint() {
 
 export default function PropertyDetails() {
   const [listing, setListing] = useState(null);
-   const [data, setData] = useState(null);
+  const [data, setData] = useState(null);
   const { id } = useParams();
   const bp = useBreakpoint();
 
   const isMobile = bp === "mobile";
   const isTablet = bp === "tablet";
   const isDesktop = bp === "desktop";
-   
 
-const fetchData = async () => {
-  try {
-    const token = localStorage.getItem("token");
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-    const response = await axios.get(
-      "http://localhost:5000/api/user/profile",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+      const response = await axios.get(
+        "http://localhost:5000/api/user/profile",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-    // ✅ axios gives data directly
-    setData(response.data.data);
+      // ✅ axios gives data directly
+      setData(response.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-useEffect(()=>{
-  fetchData();
-},[])
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchListing = async () => {
       try {
         const res = await axios.get(`http://localhost:5000/api/listings/${id}`);
         setListing(res.data);
+        console.log("The user data is" + res.data);
       } catch (err) {
         console.error(err);
       }
@@ -95,10 +122,21 @@ useEffect(()=>{
   }, [id]);
 
   if (!listing) {
-    return <div style={{ padding: 40, fontFamily: "sans-serif" }}>Loading...</div>;
+    return (
+      <div style={{ padding: 40, fontFamily: "sans-serif" }}>Loading...</div>
+    );
   }
 
   const px = isMobile ? "16px" : isTablet ? "20px" : "32px";
+
+  const handleWhatsApp = () => {
+    const phone = `91${listing.owner_phone}`;
+    const message = encodeURIComponent(
+      `Hi ${listing.owner_name}, I'm interested in your listing priced at ₹${listing.price}.`,
+    );
+
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  };
 
   return (
     <>
@@ -323,25 +361,49 @@ useEffect(()=>{
 
       <Navbar />
       <div className="pd-root">
-
         {/* ── Breadcrumb + Badges ── */}
         <div className="pd-breadcrumb">
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: isMobile ? 11 : 13, color: "#7b78a0", fontFamily: "sans-serif" }}>
-            <a href="/search" style={{ color: "#7b78a0", textDecoration: "none" }}>Listings</a>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              fontSize: isMobile ? 11 : 13,
+              color: "#7b78a0",
+              fontFamily: "sans-serif",
+            }}
+          >
+            <a
+              href="/search"
+              style={{ color: "#7b78a0", textDecoration: "none" }}
+            >
+              Listings
+            </a>
             <span>›</span>
-            <a href="#" style={{ color: "#7b78a0", textDecoration: "none" }}>Kolkata</a>
+            <a href="#" style={{ color: "#7b78a0", textDecoration: "none" }}>
+              Kolkata
+            </a>
             <span>›</span>
-            <span style={{ color: "#1a1740", fontWeight: 600 }}>{listing.title}</span>
+            <span style={{ color: "#1a1740", fontWeight: 600 }}>
+              {listing.title}
+            </span>
           </div>
           <div className="pd-badges">
             {listing.verified && (
-              <span style={{
-                display: "flex", alignItems: "center", gap: 6,
-                padding: isMobile ? "6px 12px" : "8px 18px",
-                borderRadius: 999, fontSize: 12,
-                fontWeight: 600, backgroundColor: "#4caf8e", color: "#fff",
-                fontFamily: "sans-serif",
-              }}>
+              <span
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: isMobile ? "6px 12px" : "8px 18px",
+                  borderRadius: 999,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  backgroundColor: "#4caf8e",
+                  color: "#fff",
+                  fontFamily: "sans-serif",
+                }}
+              >
                 ✓ Verified Listing
               </span>
             )}
@@ -360,20 +422,56 @@ useEffect(()=>{
         {/* ── Photo Grid ── */}
         <div className="pd-photo-grid">
           <div className="pd-photo-main">
-            <img src={listing.images[0]} alt="main" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            <img
+              src={listing.images[0]}
+              alt="main"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
           </div>
           <div className="pd-photo-right">
             {listing.images.slice(1).map((p, i) => (
-              <div key={i} style={{ borderRadius: 12, overflow: "hidden", position: "relative" }}>
-                <img src={p} alt={`photo-${i}`} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              <div
+                key={i}
+                style={{
+                  borderRadius: 12,
+                  overflow: "hidden",
+                  position: "relative",
+                }}
+              >
+                <img
+                  src={p}
+                  alt={`photo-${i}`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
                 {i === 2 && (
-                  <div style={{
-                    position: "absolute", bottom: 10, right: 10,
-                    backgroundColor: "rgba(255,255,255,0.92)", borderRadius: 8,
-                    padding: "5px 10px", fontSize: 11, fontFamily: "sans-serif",
-                    fontWeight: 600, color: "#1a1740", display: "flex",
-                    alignItems: "center", gap: 5, cursor: "pointer",
-                  }}>
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: 10,
+                      right: 10,
+                      backgroundColor: "rgba(255,255,255,0.92)",
+                      borderRadius: 8,
+                      padding: "5px 10px",
+                      fontSize: 11,
+                      fontFamily: "sans-serif",
+                      fontWeight: 600,
+                      color: "#1a1740",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5,
+                      cursor: "pointer",
+                    }}
+                  >
                     ⊞ View all 24 photos
                   </div>
                 )}
@@ -384,35 +482,74 @@ useEffect(()=>{
 
         {/* ── Content + Sidebar ── */}
         <div className="pd-content-wrap">
-
           {/* LEFT COLUMN */}
           <div>
             {/* Title */}
             <h1 className="pd-title">{listing.title}</h1>
-            <p style={{ fontSize: isMobile ? 12 : 14, color: "#7b78a0", fontFamily: "sans-serif", margin: "0 0 28px", display: "flex", alignItems: "center", gap: 4 }}>
+            <p
+              style={{
+                fontSize: isMobile ? 12 : 14,
+                color: "#7b78a0",
+                fontFamily: "sans-serif",
+                margin: "0 0 28px",
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+              }}
+            >
               📍 {listing.location}
             </p>
 
             {/* Amenities */}
-            <h2 style={{ fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "#1a1740", margin: "0 0 14px" }}>
+            <h2
+              style={{
+                fontSize: isMobile ? 15 : 18,
+                fontWeight: 700,
+                color: "#1a1740",
+                margin: "0 0 14px",
+              }}
+            >
               Premium Student Amenities
             </h2>
-            <div style={{
-              backgroundColor: "#fff", border: "1px solid #e8e4f8", borderRadius: 14,
-              padding: "16px", marginBottom: 28,
-            }}>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                border: "1px solid #e8e4f8",
+                borderRadius: 14,
+                padding: "16px",
+                marginBottom: 28,
+              }}
+            >
               <div className="pd-amenities-grid">
                 {listing.amenities?.map((item, index) => {
                   const icon = item.slice(0, 2);
                   const label = item.slice(2);
                   return (
-                    <div key={index} style={{
-                      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                      gap: 8, padding: "14px 8px", borderRadius: 10,
-                      backgroundColor: "#f8f6ff", cursor: "default",
-                    }}>
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: 8,
+                        padding: "14px 8px",
+                        borderRadius: 10,
+                        backgroundColor: "#f8f6ff",
+                        cursor: "default",
+                      }}
+                    >
                       {/* <span style={{ fontSize: 22 }}>{icon}</span> */}
-                      <span style={{ fontSize: 15, fontWeight: 600, color: "#3b3584", fontFamily: "sans-serif", textAlign: "center", lineHeight: 1.3 }}>
+                      <span
+                        style={{
+                          fontSize: 15,
+                          fontWeight: 600,
+                          color: "#3b3584",
+                          fontFamily: "sans-serif",
+                          textAlign: "center",
+                          lineHeight: 1.3,
+                        }}
+                      >
                         {item}
                       </span>
                     </div>
@@ -422,31 +559,94 @@ useEffect(()=>{
             </div>
 
             {/* Academic Proximity */}
-            <div style={{ backgroundColor: "#f8f6ff", border: "1px solid #e4e0f4", borderRadius: 14, padding: "20px", marginBottom: 28 }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: "#1a1740", margin: "0 0 16px", display: "flex", alignItems: "center", gap: 8 }}>
+            <div
+              style={{
+                backgroundColor: "#f8f6ff",
+                border: "1px solid #e4e0f4",
+                borderRadius: 14,
+                padding: "20px",
+                marginBottom: 28,
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: "#1a1740",
+                  margin: "0 0 16px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
                 🎓 Academic Proximity
               </h3>
               {PROXIMITY.map((p, i) => (
-                <div key={p.name} style={{
-                  display: "flex", alignItems: "center", justifyContent: "space-between",
-                  padding: "14px 0",
-                  borderBottom: i < PROXIMITY.length - 1 ? "1px solid #e4e0f4" : "none",
-                  gap: 8,
-                }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
-                    <div style={{
-                      width: 36, height: 36, borderRadius: "50%", backgroundColor: "#e8e4f8",
-                      display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15,
-                      flexShrink: 0,
-                    }}>
+                <div
+                  key={p.name}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "14px 0",
+                    borderBottom:
+                      i < PROXIMITY.length - 1 ? "1px solid #e4e0f4" : "none",
+                    gap: 8,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      minWidth: 0,
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: "50%",
+                        backgroundColor: "#e8e4f8",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 15,
+                        flexShrink: 0,
+                      }}
+                    >
                       {p.icon}
                     </div>
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: isMobile ? 12 : 13, fontWeight: 600, color: "#1a1740" }}>{p.name}</div>
-                      <div style={{ fontSize: 11, color: "#9b96b8", fontFamily: "sans-serif" }}>{p.sub}</div>
+                      <div
+                        style={{
+                          fontSize: isMobile ? 12 : 13,
+                          fontWeight: 600,
+                          color: "#1a1740",
+                        }}
+                      >
+                        {p.name}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "#9b96b8",
+                          fontFamily: "sans-serif",
+                        }}
+                      >
+                        {p.sub}
+                      </div>
                     </div>
                   </div>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: "#5b54d4", fontFamily: "sans-serif", flexShrink: 0 }}>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: "#5b54d4",
+                      fontFamily: "sans-serif",
+                      flexShrink: 0,
+                    }}
+                  >
                     {p.time}
                   </span>
                 </div>
@@ -454,17 +654,52 @@ useEffect(()=>{
             </div>
 
             {/* House Guidelines */}
-            <h2 style={{ fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "#1a1740", margin: "0 0 14px" }}>
+            <h2
+              style={{
+                fontSize: isMobile ? 15 : 18,
+                fontWeight: 700,
+                color: "#1a1740",
+                margin: "0 0 14px",
+              }}
+            >
               House Guidelines
             </h2>
-            <div style={{ backgroundColor: "#fff", border: "1px solid #e8e4f8", borderRadius: 14, padding: "20px", marginBottom: 28 }}>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                border: "1px solid #e8e4f8",
+                borderRadius: 14,
+                padding: "20px",
+                marginBottom: 28,
+              }}
+            >
               <div className="pd-guidelines-grid">
                 {GUIDELINES.map((g) => (
                   <div key={g.title} style={{ display: "flex", gap: 12 }}>
-                    <span style={{ fontSize: 20, flexShrink: 0, marginTop: 2 }}>{g.icon}</span>
+                    <span style={{ fontSize: 20, flexShrink: 0, marginTop: 2 }}>
+                      {g.icon}
+                    </span>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: "#1a1740", marginBottom: 3 }}>{g.title}</div>
-                      <div style={{ fontSize: 12, color: "#7b78a0", fontFamily: "sans-serif", lineHeight: 1.5 }}>{g.desc}</div>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: "#1a1740",
+                          marginBottom: 3,
+                        }}
+                      >
+                        {g.title}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 12,
+                          color: "#7b78a0",
+                          fontFamily: "sans-serif",
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {g.desc}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -474,26 +709,70 @@ useEffect(()=>{
             {/* Academic Peace of Mind */}
             <div className="pd-peace-banner">
               <div>
-                <h3 style={{ fontSize: isMobile ? 15 : 18, fontWeight: 700, color: "#0a2e24", margin: "0 0 8px" }}>
+                <h3
+                  style={{
+                    fontSize: isMobile ? 15 : 18,
+                    fontWeight: 700,
+                    color: "#0a2e24",
+                    margin: "0 0 8px",
+                  }}
+                >
                   Academic Peace of Mind
                 </h3>
-                <p style={{ fontSize: 13, color: "#0f4035", fontFamily: "sans-serif", lineHeight: 1.6, maxWidth: 380, margin: 0 }}>
-                  This property is directly verified by The Academic Curator team. We've checked structural safety, Wi-Fi speeds, and local security measures.
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#0f4035",
+                    fontFamily: "sans-serif",
+                    lineHeight: 1.6,
+                    maxWidth: 380,
+                    margin: 0,
+                  }}
+                >
+                  This property is directly verified by The Academic Curator
+                  team. We've checked structural safety, Wi-Fi speeds, and local
+                  security measures.
                 </p>
               </div>
-              <div style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-                {["https://randomuser.me/api/portraits/women/44.jpg", "https://randomuser.me/api/portraits/men/45.jpg"].map((src, i) => (
-                  <img key={i} src={src} alt="" style={{
-                    width: 40, height: 40, borderRadius: "50%", border: "2px solid #fff",
-                    objectFit: "cover", marginLeft: i === 0 ? 0 : -8, display: "block",
-                  }} />
+              <div
+                style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
+              >
+                {[
+                  "https://randomuser.me/api/portraits/women/44.jpg",
+                  "https://randomuser.me/api/portraits/men/45.jpg",
+                ].map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt=""
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: "50%",
+                      border: "2px solid #fff",
+                      objectFit: "cover",
+                      marginLeft: i === 0 ? 0 : -8,
+                      display: "block",
+                    }}
+                  />
                 ))}
-                <div style={{
-                  width: 40, height: 40, borderRadius: "50%", backgroundColor: "#2a9d7a",
-                  border: "2px solid #fff", marginLeft: -8, display: "flex",
-                  alignItems: "center", justifyContent: "center",
-                  fontSize: 11, fontWeight: 700, color: "#fff", fontFamily: "sans-serif",
-                }}>
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    backgroundColor: "#2a9d7a",
+                    border: "2px solid #fff",
+                    marginLeft: -8,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    color: "#fff",
+                    fontFamily: "sans-serif",
+                  }}
+                >
                   +45
                 </div>
               </div>
@@ -503,20 +782,44 @@ useEffect(()=>{
           {/* RIGHT SIDEBAR */}
           <div className="pd-sidebar">
             <div className="pd-sidebar-inner">
-
               {/* Pricing Card */}
               <div className="pd-pricing-card">
                 <div style={{ marginBottom: 16 }}>
                   <span className="pd-price-amount">₹{listing.price}</span>
-                  <span style={{ fontSize: 14, color: "#7b78a0", fontFamily: "sans-serif", marginLeft: 4 }}>
+                  <span
+                    style={{
+                      fontSize: 14,
+                      color: "#7b78a0",
+                      fontFamily: "sans-serif",
+                      marginLeft: 4,
+                    }}
+                  >
                     /month
                   </span>
                 </div>
 
-                <div style={{ borderBottom: "1px solid #e8e4f8", paddingBottom: 14, marginBottom: 14, display: "flex", flexDirection: "column", gap: 8 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontFamily: "sans-serif" }}>
+                <div
+                  style={{
+                    borderBottom: "1px solid #e8e4f8",
+                    paddingBottom: 14,
+                    marginBottom: 14,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 8,
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      fontSize: 13,
+                      fontFamily: "sans-serif",
+                    }}
+                  >
                     <span style={{ color: "#7b78a0" }}>Security Deposit</span>
-                    <span style={{ color: "#1a1740", fontWeight: 500 }}>₹{listing.security_deposit}</span>
+                    <span style={{ color: "#1a1740", fontWeight: 500 }}>
+                      ₹{listing.security_deposit}
+                    </span>
                   </div>
                   {/* <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontFamily: "sans-serif" }}>
                     <span style={{ color: "#7b78a0" }}>Service Fee</span>
@@ -524,66 +827,154 @@ useEffect(()=>{
                   </div> */}
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, fontWeight: 700, fontFamily: "sans-serif", marginBottom: 18 }}>
-                  <span style={{ color: "#1a1740" }}>Total Initial Payment</span>
-                  <span style={{ color: "#5b54d4", fontSize: 15 }}>₹{listing.price+listing.security_deposit}</span>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    fontFamily: "sans-serif",
+                    marginBottom: 18,
+                  }}
+                >
+                  <span style={{ color: "#1a1740" }}>
+                    Total Initial Payment
+                  </span>
+                  <span style={{ color: "#5b54d4", fontSize: 15 }}>
+                    ₹{listing.price + listing.security_deposit}
+                  </span>
                 </div>
 
                 <button className="pd-reserve-btn">Reserve Now</button>
-                <p style={{ textAlign: "center", fontSize: 11, color: "#9b96b8", fontFamily: "sans-serif", margin: 0 }}>
+                <p
+                  style={{
+                    textAlign: "center",
+                    fontSize: 11,
+                    color: "#9b96b8",
+                    fontFamily: "sans-serif",
+                    margin: 0,
+                  }}
+                >
                   No charges applied until owner approval
                 </p>
               </div>
 
               {/* Property Curator Card */}
               <div className="pd-curator-card">
-                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", color: "#9b96b8", fontFamily: "sans-serif", margin: "0 0 14px" }}>
+                <p
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: "0.12em",
+                    color: "#9b96b8",
+                    fontFamily: "sans-serif",
+                    margin: "0 0 14px",
+                  }}
+                >
                   PROPERTY CURATOR
                 </p>
 
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    marginBottom: 14,
+                  }}
+                >
                   <div style={{ position: "relative" }}>
                     <img
                       src={data?.profileImg}
                       alt="curator"
-                      style={{ width: 48, height: 48, borderRadius: "50%", objectFit: "cover", display: "block" }}
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
                     />
-                    <span style={{
-                      position: "absolute", bottom: 0, right: 0,
-                      width: 12, height: 12, borderRadius: "50%",
-                      backgroundColor: "#4caf8e", border: "2px solid #fff",
-                    }} />
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: 0,
+                        right: 0,
+                        width: 12,
+                        height: 12,
+                        borderRadius: "50%",
+                        backgroundColor: "#4caf8e",
+                        border: "2px solid #fff",
+                      }}
+                    />
                   </div>
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: "#1a1740" }}>
+                    <div
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 700,
+                        color: "#1a1740",
+                      }}
+                    >
                       {listing.owner_name}
                     </div>
-                    <div style={{ fontSize: 12, color: "#7b78a0", fontFamily: "sans-serif" }}>
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: "#7b78a0",
+                        fontFamily: "sans-serif",
+                      }}
+                    >
                       Response rate: 98%
                     </div>
                   </div>
                 </div>
 
-                <div style={{
-                  display: "flex", alignItems: "center", gap: 8, fontSize: 13,
-                  backgroundColor: "#f8f6ff", padding: "10px 12px", borderRadius: 10,
-                  marginBottom: 12, color: "#4a4770", fontFamily: "sans-serif",
-                  wordBreak: "break-all",
-                }}>
-                  📞 {listing.owner_phone}
-                </div>
+                {/* <a href={`tel:${listing.phone}`}>
+  <button>📞 Call Owner</button>
+</a> */}
+                <a href={`tel:${listing.owner_phone}`}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      fontSize: 13,
+                      backgroundColor: "#f8f6ff",
+                      padding: "10px 12px",
+                      borderRadius: 10,
+                      marginBottom: 12,
+                      color: "#4a4770",
+                      fontFamily: "sans-serif",
+                      wordBreak: "break-all",
+                    }}
+                  >
+                    {/* 📞 {listing.owner_phone} */}
+                    📞 Call Owner
+                  </div>
+                </a>
 
-                <button style={{
-                  width: "100%", padding: "10px 0", borderRadius: 12,
-                  backgroundColor: "#f0edf8", border: "1px solid #ddd8f0",
-                  color: "#3b3584", fontWeight: 600, fontSize: 13, cursor: "pointer",
-                  fontFamily: "sans-serif", display: "flex", alignItems: "center",
-                  justifyContent: "center", gap: 6,
-                }}>
+                <button
+                  onClick={handleWhatsApp}
+                  style={{
+                    width: "100%",
+                    padding: "10px 0",
+                    borderRadius: 12,
+                    backgroundColor: "#f0edf8",
+                    border: "1px solid #ddd8f0",
+                    color: "#3b3584",
+                    fontWeight: 600,
+                    fontSize: 13,
+                    cursor: "pointer",
+                    fontFamily: "sans-serif",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 6,
+                  }}
+                >
                   💬 Connect with Owner
                 </button>
               </div>
-
             </div>
           </div>
         </div>
