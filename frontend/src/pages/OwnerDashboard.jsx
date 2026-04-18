@@ -174,6 +174,12 @@ export default function OwnerDashboard() {
   const [isHovered, setIsHovered] = useState(false);
   const [listings, setListings] = useState([]);
   const [editData, setEditData] = useState(null);
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [showFilter, setShowFilter] = useState(false);
+  const filteredListings =
+  filterStatus === "all"
+    ? listings
+    : listings.filter(item => item.status === filterStatus);
 
   const handleEdit = (property) => {
   setEditData(property);
@@ -708,28 +714,72 @@ const handleUpdate = async (form) => {
               >
                 Your Properties
               </h2>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                  backgroundColor: "#f3eeff",
-                  padding: "8px 16px",
-                  borderRadius: 10,
-                  cursor: "pointer",
-                  fontSize: 13,
-                  color: "#5c5680",
-                  fontWeight: 500,
-                }}
-              >
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: 16 }}
-                >
-                  filter_list
-                </span>
-                Filter by Status
-              </div>
+             <div style={{ position: "relative" }}>
+  
+  {/* 🔘 Button */}
+  <div
+    onClick={() => setShowFilter(prev => !prev)}
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      backgroundColor: "#f3eeff",
+      padding: "8px 16px",
+      borderRadius: 10,
+      cursor: "pointer",
+      fontSize: 13,
+      color: "#5c5680",
+      fontWeight: 500,
+    }}
+  >
+    <span
+      className="material-symbols-outlined"
+      style={{ fontSize: 16 }}
+    >
+      filter_list
+    </span>
+    Filter By Status
+  </div>
+
+  {/* 📦 Dropdown */}
+  {showFilter && (
+    <div
+      style={{
+        position: "absolute",
+        top: "110%",
+        right: 0,
+        background: "#fff",
+        border: "1px solid #eee",
+        borderRadius: 10,
+        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+        overflow: "hidden",
+        zIndex: 10,
+        minWidth: 140
+      }}
+    >
+      {["all", "active", "inactive"].map(option => (
+        <div
+          key={option}
+          onClick={() => {
+            setFilterStatus(option);
+            setShowFilter(false);
+          }}
+          style={{
+            padding: "10px 14px",
+            cursor: "pointer",
+            fontSize: 13,
+            background:
+              filterStatus === option ? "#f3eeff" : "#fff",
+            color: "#333"
+          }}
+        >
+          {option.charAt(0).toUpperCase() + option.slice(1)}
+        </div>
+      ))}
+    </div>
+  )}
+
+</div>
             </div>
 
             <div
@@ -772,7 +822,7 @@ const handleUpdate = async (form) => {
                     {/* {listings.map((p) => (
                       <PropertyRow key={p.id} property={p} />
                     ))} */}
-                    {listings.map((item) => (
+                    {filteredListings.map((item) => (
                       <PropertyRow
                         key={item._id}
                         property={item}
