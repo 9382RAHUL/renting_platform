@@ -43,6 +43,8 @@ export default function CreateListing() {
   const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
+  const [nearbyPlaces, setNearbyPlaces] = useState([]);
+  const [guidelines, setGuidelines] = useState([]);
   const fileInputRef = useRef(null);
 
   const isMobile = window.innerWidth < 768;
@@ -187,14 +189,13 @@ export default function CreateListing() {
       if (selectedCategory) tags.push(selectedCategory);
       formData.append("tags", tags.join(",")); // ✅ IMPORTANT
 
-      // // Amenities (array)
-      // selectedAmenities.forEach((a) => {
-      //   formData.append("amenities", a);
-      // });
-
-      // // Tags (room + category)
-      // if (selectedRoom) formData.append("tags", selectedRoom);
-      // if (selectedCategory) formData.append("tags", selectedCategory);
+      // Nearby Places and Guidelines
+      if (nearbyPlaces.length > 0) {
+        formData.append("nearbyPlaces", JSON.stringify(nearbyPlaces));
+      }
+      if (guidelines.length > 0) {
+        formData.append("guidelines", JSON.stringify(guidelines));
+      }
 
       // Images (VERY IMPORTANT)
       uploadedImages.forEach((img) => {
@@ -289,6 +290,34 @@ export default function CreateListing() {
     }
   };
 
+  const addNearbyPlace = () => {
+    setNearbyPlaces([...nearbyPlaces, { place: '', description: '', distance: '' }]);
+  };
+
+  const updateNearbyPlace = (index, field, value) => {
+    const updated = [...nearbyPlaces];
+    updated[index][field] = value;
+    setNearbyPlaces(updated);
+  };
+
+  const removeNearbyPlace = (index) => {
+    setNearbyPlaces(nearbyPlaces.filter((_, i) => i !== index));
+  };
+
+  const addGuideline = () => {
+    setGuidelines([...guidelines, { title: '', desc: '' }]);
+  };
+
+  const updateGuideline = (index, field, value) => {
+    const updated = [...guidelines];
+    updated[index][field] = value;
+    setGuidelines(updated);
+  };
+
+  const removeGuideline = (index) => {
+    setGuidelines(guidelines.filter((_, i) => i !== index));
+  };
+
   // const handleDrop = (e) => {
   //   e.preventDefault();
   //   const files = Array.from(e.dataTransfer.files).filter((f) =>
@@ -336,6 +365,11 @@ export default function CreateListing() {
     (item) => item.area_id === selectedAreaId,
   );
   const subAreas = selectedArea?.sub_areas || [];
+
+
+
+  /////////////// CONSOLE> LOGGING FOR DEBUGGING PURPOSES
+
 
   return (
     <>
@@ -1127,6 +1161,183 @@ export default function CreateListing() {
                 })}
               </div>
             </div>
+
+            {/* Nearby Places */}
+            <div style={{ marginBottom: 36 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1a1740", margin: 0 }}>
+                  Nearby Places (Optional)
+                </h2>
+                <button
+                  type="button"
+                  onClick={addNearbyPlace}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: 8,
+                    border: "1px solid #c4b8f8",
+                    backgroundColor: "#f0edf8",
+                    color: "#4f46e5",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                  }}
+                >
+                  + Add Place
+                </button>
+              </div>
+              {nearbyPlaces.map((place, index) => (
+                <div key={index} style={{ marginBottom: 16, padding: 16, border: '1px solid #e8e4f8', borderRadius: 12, backgroundColor: '#faf9ff' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                    <h3 style={{ fontSize: 14, fontWeight: 600, color: '#2e2a50', margin: 0 }}>Place {index + 1}</h3>
+                    <button
+                      type="button"
+                      onClick={() => removeNearbyPlace(index)}
+                      style={{
+                        padding: "4px 8px",
+                        borderRadius: 6,
+                        border: "none",
+                        backgroundColor: "#fee2e2",
+                        color: "#dc2626",
+                        fontSize: 12,
+                        cursor: "pointer",
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 12 }}>
+                    <input
+                      type="text"
+                      placeholder="Place name (e.g., Mall, Hospital)"
+                      value={place.place}
+                      onChange={(e) => updateNearbyPlace(index, 'place', e.target.value)}
+                      style={{
+                        padding: "10px 12px",
+                        borderRadius: 8,
+                        border: "1px solid #d6d1f2",
+                        fontSize: 14,
+                        color: "#2e2a50",
+                        backgroundColor: "#fff",
+                        outline: "none",
+                      }}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Distance (e.g., 2 km)"
+                      value={place.distance}
+                      onChange={(e) => updateNearbyPlace(index, 'distance', e.target.value)}
+                      style={{
+                        padding: "10px 12px",
+                        borderRadius: 8,
+                        border: "1px solid #d6d1f2",
+                        fontSize: 14,
+                        color: "#2e2a50",
+                        backgroundColor: "#fff",
+                        outline: "none",
+                      }}
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Description (optional)"
+                    value={place.description}
+                    onChange={(e) => updateNearbyPlace(index, 'description', e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: "10px 12px",
+                      borderRadius: 8,
+                      border: "1px solid #d6d1f2",
+                      fontSize: 14,
+                      color: "#2e2a50",
+                      backgroundColor: "#fff",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Guidelines */}
+            <div style={{ marginBottom: 36 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 700, color: "#1a1740", margin: 0 }}>
+                  Guidelines (Optional)
+                </h2>
+                <button
+                  type="button"
+                  onClick={addGuideline}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: 8,
+                    border: "1px solid #c4b8f8",
+                    backgroundColor: "#f0edf8",
+                    color: "#4f46e5",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                  }}
+                >
+                  + Add Guideline
+                </button>
+              </div>
+              {guidelines.map((guideline, index) => (
+                <div key={index} style={{ marginBottom: 16, padding: 16, border: '1px solid #e8e4f8', borderRadius: 12, backgroundColor: '#faf9ff' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                    <h3 style={{ fontSize: 14, fontWeight: 600, color: '#2e2a50', margin: 0 }}>Guideline {index + 1}</h3>
+                    <button
+                      type="button"
+                      onClick={() => removeGuideline(index)}
+                      style={{
+                        padding: "4px 8px",
+                        borderRadius: 6,
+                        border: "none",
+                        backgroundColor: "#fee2e2",
+                        color: "#dc2626",
+                        fontSize: 12,
+                        cursor: "pointer",
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Title (e.g., Check-in Time)"
+                    value={guideline.title}
+                    onChange={(e) => updateGuideline(index, 'title', e.target.value)}
+                    style={{
+                      width: '100%',
+                      padding: "10px 12px",
+                      borderRadius: 8,
+                      border: "1px solid #d6d1f2",
+                      fontSize: 14,
+                      color: "#2e2a50",
+                      backgroundColor: "#fff",
+                      outline: "none",
+                      marginBottom: 12,
+                    }}
+                  />
+                  <textarea
+                    placeholder="Description"
+                    value={guideline.desc}
+                    onChange={(e) => updateGuideline(index, 'desc', e.target.value)}
+                    rows={3}
+                    style={{
+                      width: '100%',
+                      padding: "10px 12px",
+                      borderRadius: 8,
+                      border: "1px solid #d6d1f2",
+                      fontSize: 14,
+                      color: "#2e2a50",
+                      backgroundColor: "#fff",
+                      outline: "none",
+                      resize: 'vertical',
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
             {/* Divider */}
             <div
               style={{
