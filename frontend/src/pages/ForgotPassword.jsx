@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+ import { useNavigate } from "react-router-dom";
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
@@ -321,13 +321,37 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+ 
 
-  const handleSubmit = () => {
-    if (!email.trim()) return;
-    setLoading(true);
-    setTimeout(() => { setLoading(false); setSent(true); }, 1400);
-  };
+const navigate = useNavigate();
 
+ const handleSubmit = async () => {
+  if (!email.trim()) return;
+
+  setLoading(true);
+
+  try {
+    const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Something went wrong");
+    }
+
+    setSent(true); // ✅ show success UI
+  } catch (err) {
+    alert(err.message); // ❌ show error
+  }
+
+  setLoading(false);
+};
   return (
     <>
       <style>{styles}</style>
@@ -402,7 +426,7 @@ export default function ForgotPassword() {
                   )}
                 </button>
 
-                <button className="back-link">
+               <button className="back-link" onClick={() => navigate("/login")}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M19 12H5M12 5l-7 7 7 7"/>
                   </svg>

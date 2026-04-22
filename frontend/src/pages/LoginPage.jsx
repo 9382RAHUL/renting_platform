@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
 
@@ -598,7 +598,7 @@ export default function LoginPage() {
                     </div>
                     Remember Me
                   </label>
-                  <button className="forgot-link" type="button">Forgot Password?</button>
+                  <NavLink to={"/forgot-password"} className="forgot-link" type="button">Forgot Password?</NavLink>
                 </div>
  
                 {/* Submit */}
