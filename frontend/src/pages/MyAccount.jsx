@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { NavLink } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -100,7 +101,7 @@ export default function CuratorDashboard() {
 
   const [avatar, setAvatar] = useState(null);
   const [budget, setBudget] = useState(1200);
-
+const navigate=useNavigate();
   const bp = useBreakpoint();
 
   const isMobile = bp === "mobile";
@@ -605,7 +606,7 @@ export default function CuratorDashboard() {
               </nav>
             </div>
 
-            <button className="list-btn">List a Property</button>
+            <button onClick={() => navigate("/newlisting")} className="list-btn">List a Property</button>
           </aside>
 
           {/* ── Main ── */}
@@ -846,7 +847,7 @@ export default function CuratorDashboard() {
                         </div>
 
                         {/* LOCATION */}
-                        <p style={{ fontSize: 12, color: "#9ca3af" }}>
+                        <p style={{ fontSize: 12, color: "#9ca3af", marginBottom:10 }}>
                           📍 {listing.location}
                         </p>
 
