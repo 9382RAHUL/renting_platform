@@ -1,26 +1,19 @@
-// ─────────────────────────────────────────────────────────────
-// AcademicCuratorPart2.jsx
-// Contains: main page layout — Navbar, Hero, Listings,
-//           Trust Bar, Testimonials, CTA, Footer
-// ─────────────────────────────────────────────────────────────
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/AcademicCurator.css";
 import {
-  listings,
   testimonials,
   HeroIllustration,
-  ListingCard,
   TestimonialCard,
 } from "../data/HomeData.jsx";
 import Navbar from "../components/Navbar.jsx";
 import MainFooter from "../components/MainFooter.jsx";
-// import Navbar from "../components/Navbar.jsx";
+import ListingCard from "../components/ListingCards.jsx";
+import { NavLink } from "react-router-dom";
 
-// ── Navbar ────────────────────────────────────────────────────
 
-
-<Navbar/>
+<Navbar />;
 
 // ── Hero Section ──────────────────────────────────────────────
 
@@ -29,7 +22,8 @@ function Hero() {
     <section className="ac-hero">
       <div>
         <div className="ac-hero-h1">
-          Curating your<br />
+          Curating your
+          <br />
           <em>Academic</em> journey.
         </div>
         <p className="ac-hero-sub">
@@ -56,8 +50,10 @@ function Hero() {
           <HeroIllustration />
         </div>
         <div className="ac-hero-badge">
-          <span className="big">500+</span>
-          VERIFIED LISTINGS<br />IN KOLKATA
+          <span className="big">50+</span>
+          VERIFIED LISTINGS
+          <br />
+          IN KOLKATA
         </div>
       </div>
     </section>
@@ -66,7 +62,22 @@ function Hero() {
 
 // ── Listings Section ──────────────────────────────────────────
 
-function ListingsSection() {
+const ListingsSection = () => {
+  const [listings, setListings] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/listings/getall",
+        );
+        setListings(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, []); // ✅ empty dependency
   return (
     <section className="ac-section">
       <div className="ac-section-header">
@@ -76,16 +87,18 @@ function ListingsSection() {
             Top rated accommodations near major Kolkata hubs.
           </div>
         </div>
-        <a className="ac-view-all">View all listings →</a>
+        <NavLink to={"/search"} className="ac-view-all">
+          View all listings →
+        </NavLink>
       </div>
       <div className="ac-cards">
-        {listings.map((listing, i) => (
+        {listings.slice(0, 3).map((listing, i) => (
           <ListingCard key={i} listing={listing} />
         ))}
       </div>
     </section>
   );
-}
+};
 
 // ── Trust Bar ─────────────────────────────────────────────────
 
@@ -136,17 +149,23 @@ function TestimonialsSection() {
 // ── CTA Banner ────────────────────────────────────────────────
 
 function CTABanner() {
+  const navigate = useNavigate();
   return (
     <div className="ac-cta">
       <div>
         <h2>Own a property in Kolkata?</h2>
         <p>
-          Join 200+ partners who list their student accommodations with us.
-          We handle the vetting, the students, and the management.
+          Join 200+ partners who list their student accommodations with us. We
+          handle the vetting, the students, and the management.
         </p>
         <div className="ac-cta-btns">
-          <button className="ac-btn-primary">List Your Property 🏢</button>
-          <button className="ac-btn-secondary">Partner Benefits</button>
+          <button
+            onClick={() => navigate("/newlisting")}
+            className="ac-btn-primary"
+          >
+            List Your Property 🏢
+          </button>
+          {/* <button className="ac-btn-secondary">Partner Benefits</button> */}
         </div>
       </div>
       <div className="ac-cta-stats">
@@ -171,7 +190,7 @@ function CTABanner() {
 
 // ── Footer ────────────────────────────────────────────────────
 
-<MainFooter/>
+<MainFooter />;
 
 // ── Root Page Component ───────────────────────────────────────
 

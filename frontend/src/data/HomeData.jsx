@@ -1,40 +1,4 @@
-// ── Static Data ───────────────────────────────────────────────
 
-export const listings = [
-  {
-    name: "The Victoria Residence",
-    price: "₹18,500",
-    badge: "PREMIUM",
-    badgeClass: "premium",
-    location: "Bhawanipur, Kolkata",
-    tags: ["WIFI-6", "MEAL PLAN", "AC"],
-    distance: "0.8km from St. Xavier's",
-    color1: "#1a1f5e",
-    color2: "#2d3480",
-  },
-  {
-    name: "Presidency Heights",
-    price: "₹12,000",
-    badge: "BEST VALUE",
-    badgeClass: "bestval",
-    location: "College Street",
-    tags: ["LIBRARY ACCESS", "24/7 SECURITY"],
-    distance: "0.3km from Calcutta University",
-    color1: "#1e2a3a",
-    color2: "#2d3e50",
-  },
-  {
-    name: "The Heritage Studio",
-    price: "₹15,000",
-    badge: null,
-    badgeClass: null,
-    location: "Jadavpur",
-    tags: ["GYM", "LAUNDRY"],
-    distance: "1.2km from Jadavpur University",
-    color1: "#0a3d3a",
-    color2: "#1a5c56",
-  },
-];
 
 export const testimonials = [
   {
