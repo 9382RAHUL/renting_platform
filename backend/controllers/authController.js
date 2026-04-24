@@ -30,10 +30,10 @@ export const signup = async (req, res) => {
     // generate token
     // const token = jwt.sign(
     //   { id: user._id },
-    //   "SECRET_KEY",
+    //   process.env.JWT_SECRET,
     //   { expiresIn: "7d" }
     // );
-    const token=jwt.sign({ id: user._id, role: user.role, profileFilled: user.profileFilled }, "SECRET_KEY");
+    const token=jwt.sign({ id: user._id, role: user.role, profileFilled: user.profileFilled }, process.env.JWT_SECRET);
     console.log("data is "+token)
 
     res.status(201).json({
@@ -60,7 +60,7 @@ export const signup = async (req, res) => {
 //     const isMatch = await bcrypt.compare(password, user.password);
 //     if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
-//     const token = jwt.sign({ id: user._id ,role:user.role, profileFilled: userData ? true : false }, "SECRET_KEY", {
+//     const token = jwt.sign({ id: user._id ,role:user.role, profileFilled: userData ? true : false }, process.env.JWT_SECRET, {
 //       expiresIn: "7d"
 //     });
 
@@ -97,7 +97,8 @@ export const login = async (req, res) => {
         role: user.role,
         profileFilled: userData ? true : false
       },
-      "SECRET_KEY",
+      // process.env.JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 

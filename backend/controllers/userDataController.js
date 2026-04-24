@@ -2,54 +2,6 @@ import UserData from "../models/UserData.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
-// export const saveUserProfile = async (req, res) => {
-//   try {
-//     const userId = req.user.id;
-
-//     const {
-//       fullName,
-//       universityName,
-//       passoutYear,
-//       dob,
-//       budget,
-//       preferredLocation,
-//       profileImg
-//     } = req.body;
-// if (!fullName || !universityName ||!passoutYear|| !dob||!budget || !preferredLocation || !profileImg) {
-//   return res.status(400).json({ message: "All fields are required is required" });
-// }
-//     // 🔹 Upsert (create if not exist, else update)
-//     const userProfile = await UserData.findOneAndUpdate(
-//       { user: userId },
-//       {
-//         user: userId,
-//         fullName,
-//         universityName,
-//         passoutYear,
-//         dob,
-//         budget,
-//         preferredLocation,
-//         profileImg
-//       },
-//       {
-//         new: true,        // return updated doc
-//         upsert: true      // create if not exists
-//       }
-//     );
-
-//     res.status(200).json({
-//       message: "Profile saved successfully",
-//       data: userProfile
-//     });
-
-//   } catch (error) {
-//     res.status(500).json({
-//       message: "Error saving profile",
-//       error: error.message
-//     });
-//   }
-// };
-
 
 import cloudinary from "../config/cloudinary.js"; // same as listing
 import streamifier from "streamifier";
@@ -205,7 +157,7 @@ export const saveUserProfile = async (req, res) => {
     // ✅ Mark profile as filled in User collection
     const user = await User.findByIdAndUpdate(userId, { profileFilled: true }, { new: true });
 
-    const token=jwt.sign({ id: user._id, role: user.role, profileFilled: user.profileFilled }, "SECRET_KEY");
+    const token=jwt.sign({ id: user._id, role: user.role, profileFilled: user.profileFilled },process.env.JWT_SECRET);
 
     res.status(200).json({
       message: "Profile saved successfully",
