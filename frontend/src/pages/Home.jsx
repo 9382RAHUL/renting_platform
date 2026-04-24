@@ -68,7 +68,7 @@ const ListingsSection = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/listings/getall",
+          `${import.meta.env.VITE_API_URL}/api/listings/getall`,
         );
         setListings(res.data);
       } catch (err) {

@@ -190,7 +190,7 @@ const handleUpdate = async (form) => {
   console.log("Updating listing with data:", form);
 
   const res = await fetch(
-    `http://localhost:5000/api/listings/${editData._id}`,
+    `${import.meta.env.VITE_API_URL}/api/listings/${editData._id}`,
     {
       method: "PUT",
       headers: {
@@ -221,7 +221,7 @@ const handleUpdate = async (form) => {
       currentStatus === "active" ? "inactive" : "active"; // ✅ FIXED
 
     const res = await fetch(
-      `http://localhost:5000/api/listings/${id}/status`,
+      `${import.meta.env.VITE_API_URL}/api/listings/${id}/status`,
       {
         method: "PATCH",
         headers: {
@@ -255,7 +255,7 @@ const handleUpdate = async (form) => {
     const fetchListings = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:5000/api/listings/mydata", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/listings/mydata`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -275,7 +275,7 @@ const handleUpdate = async (form) => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`http://localhost:5000/api/listings/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/listings/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

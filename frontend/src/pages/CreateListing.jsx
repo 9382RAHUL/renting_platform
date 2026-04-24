@@ -211,7 +211,7 @@ export default function CreateListing() {
   }
 
 
-      const res = await fetch("http://localhost:5000/api/listings", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/listings`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // ✅ ADD THIS

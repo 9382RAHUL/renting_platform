@@ -729,7 +729,7 @@ export default function UserData() {
       //   formData.append("profession", form.profession);
       // }
 
-      const res = await fetch("http://localhost:5000/api/user/profile", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`

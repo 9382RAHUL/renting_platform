@@ -89,7 +89,7 @@ export default function PropertyDetails() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:5000/api/user/profile",
+        `${import.meta.env.VITE_API_URL}/api/user/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -111,7 +111,7 @@ export default function PropertyDetails() {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/listings/${id}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/listings/${id}`);
         setListing(res.data);
         console.log("The user data is" + res.data);
       } catch (err) {

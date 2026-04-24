@@ -124,7 +124,7 @@ const navigate=useNavigate();
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/api/bookmarks", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookmarks`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -143,7 +143,7 @@ const navigate=useNavigate();
   const removeBookmark = async (listingId) => {
     const token = localStorage.getItem("token");
 
-    await fetch("http://localhost:5000/api/bookmarks/toggle", {
+    await fetch(`${import.meta.env.VITE_API_URL}/api/bookmarks/toggle`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -164,7 +164,7 @@ const navigate=useNavigate();
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:5000/api/user/profile", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

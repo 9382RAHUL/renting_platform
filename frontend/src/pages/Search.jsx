@@ -52,7 +52,10 @@ export default function Search() {
   const fetchListings = async (filters = {}) => {
     try {
       const query = new URLSearchParams(filters).toString();
-      const res = await axios.get(`http://localhost:5000/api/listings?${query}`);
+      // const res = await axios.get(`http://localhost:5000/api/listings?${query}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/listings?${query}`);
+
+      
       setListings(res.data.listings);
       
     } catch (err) {
@@ -111,7 +114,7 @@ useEffect(() => {
       const token = localStorage.getItem("token");
 
       const bookmarkRes = await axios.get(
-        "http://localhost:5000/api/bookmarks",
+        `${import.meta.env.VITE_API_URL}/api/bookmarks`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -138,7 +141,7 @@ useEffect(() => {
   try {
     const token = localStorage.getItem("token"); // or wherever you store JWT
 
-    const res = await fetch("http://localhost:5000/api/bookmarks/toggle", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/bookmarks/toggle`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
