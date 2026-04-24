@@ -9,6 +9,13 @@ const app = express();
 
 // Middleware
 app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173", // for local dev
+    "https://tenant-renting-plateform.vercel.app" // your live frontend
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
