@@ -12,6 +12,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [data, setData] = useState(null);
 
+  
+
 const fetchData = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -60,12 +62,13 @@ const navLinks = [
 
   { name: "My Account", path: "/account" },
 ];
+const navigate=useNavigate();
   const handleLogout = () => {
     const confirm = window.confirm("Are you sure you want to logout?");
     if (confirm) {
       localStorage.removeItem("token");
-      window.location.reload();
-      // navigate("/login");
+      // window.location.reload();
+      navigate("/login");
     }
   };
   return (
