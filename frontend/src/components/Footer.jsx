@@ -73,7 +73,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-gray-100 text-center py-4 text-xs text-gray-400">
-        © 2024 The Academic Curator. Premium Student Living in Kolkata.
+        © 2024 Rommate. Premium Student Living in Kolkata.
       </div>
     </footer>
   );

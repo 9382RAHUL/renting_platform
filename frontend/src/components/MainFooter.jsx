@@ -1,10 +1,15 @@
 import "../styles/AcademicCurator.css"
+import roommate from "../assets/RommateLogo.jpeg"
 export default function MainFooter() {
   return (
     <footer className="ac-footer">
       <div className="ac-footer-grid">
         <div className="ac-footer-brand">
-          <div className="ac-footer-logo">The Academic Curator</div>
+          {/* <div className="ac-footer-logo">The Academic Curator</div> */}
+
+          <img src={roommate} alt="" className="ac-footer-logo" >
+                
+                </img>
           <p className="ac-footer-tagline">
             Redefining student housing in the cultural capital of India.
             Elevating the academic lifestyle through premium spaces and community.
@@ -39,7 +44,7 @@ export default function MainFooter() {
       </div>
 
       <div className="ac-footer-bottom">
-        <span>© 2024 The Academic Curator. Premium Student Living in Kolkata.</span>
+        <span>© 2024 Rommate. Premium Student Living in Kolkata.</span>
       </div>
     </footer>
   );

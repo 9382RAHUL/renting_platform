@@ -747,10 +747,14 @@
 }
 
 .ac-footer-logo {
-  font-weight: 700;
+  /* font-weight: 700;
   font-size: 16px;
   color: var(--navy);
-  margin-bottom: 10px;
+  margin-bottom: 10px; */
+    height: 36px;   /* perfect navbar size */
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
 }
 
 .ac-footer-tagline {
