@@ -6,11 +6,11 @@ export default function MainFooter() {
     <footer className="ac-footer">
       <div className="ac-footer-grid">
         <div className="ac-footer-brand">
-          {/* <div className="ac-footer-logo">The Academic Curator</div> */}
+          <div className="ac-footer-logo">Rommate</div>
 
-          <img src={logo} alt="" className="ac-footer-logo" >
+          {/* <img src={logo} alt="" className="ac-footer-logo" >
                 
-                </img>
+                </img> */}
           <p className="ac-footer-tagline">
             Redefining student housing in the cultural capital of India.
             Elevating the academic lifestyle through premium spaces and community.
