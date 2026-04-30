@@ -1657,7 +1657,7 @@ export default function CreateListing() {
       </div>
       {/* TOAST */}
       <div className={`toast ${toast ? "show" : ""}`}>
-        ✓ Profile saved successfully!
+        ✓ Data saved successfully!
       </div>
     </>
   );
