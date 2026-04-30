@@ -909,10 +909,10 @@ const navigate=useNavigate();
         <footer className="footer">
           <div>
             <div style={{ fontWeight: 700, fontSize: 14, color: "#4338ca" }}>
-              The Academic Curator
+              Rommate
             </div>
             <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 4 }}>
-              © 2024 THE ACADEMIC CURATOR. CURATING INTELLECTUAL GROWTH.
+              © 2024 ROMMATE. CURATING INTELLECTUAL GROWTH.
             </div>
           </div>
           <div className="footer-links">
