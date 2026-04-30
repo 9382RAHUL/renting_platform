@@ -47,13 +47,21 @@
   border-bottom: 1px solid var(--border);
 }
 
-.ac-nav-logo {
+/* .ac-nav-logo {
   font-family: 'DM Sans', sans-serif;
   font-weight: 600;
   font-size: 17px;
   color: var(--navy);
   letter-spacing: -0.3px;
+} */
+ .ac-nav-logo {
+  height: 36px;   /* perfect navbar size */
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
 }
+
+
 
 .ac-nav-links {
   display: flex;

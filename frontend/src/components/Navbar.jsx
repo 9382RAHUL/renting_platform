@@ -7,8 +7,9 @@ import { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios"
-import {bgimg} from "../assets/noBGRommateLogo"
 
+import roommate from "../assets/RommateLogo.jpeg"
+import logo from "../assets/noBGRommateLogo.png"
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [data, setData] = useState(null);
@@ -76,9 +77,9 @@ const navigate=useNavigate();
     <nav className="ac-nav">
       {/* Logo */}
       {/* <div className="ac-nav-logo">The Academic Curator</div> */}
-      <div className="ac-nav-logo">
-        <img src={bgimg} alt="" />
-      </div>
+      <img src={roommate} alt="" className="ac-nav-logo" >
+      
+      </img>
 
 
       {/* Desktop Links */}
