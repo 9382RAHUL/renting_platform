@@ -1,5 +1,6 @@
 import "../styles/AcademicCurator.css"
 import roommate from "../assets/RommateLogo.jpeg"
+import logo from "../assets/noBGRommateLogo.png"
 export default function MainFooter() {
   return (
     <footer className="ac-footer">
@@ -7,7 +8,7 @@ export default function MainFooter() {
         <div className="ac-footer-brand">
           {/* <div className="ac-footer-logo">The Academic Curator</div> */}
 
-          <img src={roommate} alt="" className="ac-footer-logo" >
+          <img src={logo} alt="" className="ac-footer-logo" >
                 
                 </img>
           <p className="ac-footer-tagline">
