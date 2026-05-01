@@ -13,6 +13,14 @@ const STEPS = [
 
 const AMENITIES = [
   "Free Wi-Fi",
+  "Almirah",
+  "Mattress",
+  "Refrigerator",
+  "Dining Table",
+  "Water Purifier",
+  "24 Hours Electricity ",
+  "Geysers",
+  "Lift",
   "Meal Plan",
   "Washing Machine",
   "AC",
@@ -443,7 +451,7 @@ export default function CreateListing() {
               ←
             </NavLink>
             <span style={{ fontWeight: 700, fontSize: 16, color: "#2e2a50" }}>
-              Academic Curator
+              Rommate
             </span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
