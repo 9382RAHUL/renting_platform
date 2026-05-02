@@ -88,7 +88,8 @@
     "area": "Jadavpur",
     "sub_areas": [
       { "id": "KOL011-1", "name": "Santoshpur" },
-      { "id": "KOL011-2", "name": "Garfa" }
+      { "id": "KOL011-2", "name": "Garfa" },
+       { "id": "KOL011-3", "name": "Baghajatin" }
     ]
   },
   {
