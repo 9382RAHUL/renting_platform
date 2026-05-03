@@ -529,6 +529,23 @@ useEffect(() => {
                         ))}
                       </div>
 
+                        
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
+                        {listing.tags?.map((a) => (
+                          <span
+                            key={a}
+                            style={{
+                              display: "inline-flex", alignItems: "center", gap: 4,
+                              padding: "4px 10px", fontSize: 11,
+                              background: "#f0eeff", color: "#4f46e5",
+                              borderRadius: 20, fontWeight: 500,
+                            }}
+                          >
+                            <span style={{ fontSize: 11 }}>{tagIcons[a]}</span>
+                            {a}
+                          </span>
+                        ))}
+                      </div>
                       <NavLink
                         to={`/propertydetails/${listing._id}`}
                         style={{
