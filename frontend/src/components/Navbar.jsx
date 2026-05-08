@@ -332,24 +332,34 @@ const navigate=useNavigate();
         )
       }
 
-      <button
-        onClick={handleLogout}
-        className="w-20 sm:w-16 rounded-sm
-        text-red-500 hover:bg-red-500 hover:text-white
-        transition-all duration-200 border-red-500 border text-center"
-      >
-        Logout
-      </button>
+   <button
+  onClick={handleLogout}
+  className="flex items-center gap-1.5 px-4 h-9 rounded-lg text-sm  cursor-pointer font-semibold
+             text-red-500 hover:bg-red-50 hover:text-red-700
+             border border-transparent hover:border-red-200
+             active:scale-95 transition-all duration-150"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24"
+       fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+    <polyline points="16 17 21 12 16 7"/>
+    <line x1="21" y1="12" x2="9" y2="12"/>
+  </svg>
+  Logout
+</button>
     </>
   ) : (
-    <button
-      onClick={() => navigate("/login")}
-      className="w-20 sm:w-16 rounded-sm
-      text-blue-500 hover:bg-blue-500 hover:text-white
-      transition-all duration-200 border-blue-500 border text-center"
-    >
-      Login
-    </button>
+<button
+  onClick={() => navigate("/login")}
+  className="flex items-center gap-1.5 px-5 h-9 rounded-sm text-sm w-20 justify-center font-semibold text-white
+             bg-gradient-to-br from-[#1a237e] to-[#283593]
+             shadow-[0_2px_10px_rgba(26,35,126,0.3)]
+             hover:from-[#283593] hover:to-[#3949ab] hover:-translate-y-px
+             hover:shadow-[0_4px_16px_rgba(26,35,126,0.35)]
+             active:scale-95 transition-all duration-150"
+>
+  Login 
+</button>
   )
 }
         {/* Hamburger */}
