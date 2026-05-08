@@ -2,6 +2,198 @@
 
 
 
+// import { NavLink } from "react-router-dom";
+// import { useState ,useEffect} from "react";
+// import { useNavigate } from "react-router-dom";
+// import { jwtDecode } from "jwt-decode";
+// import axios from "axios"
+
+// import roommate from "../assets/RommateLogo.jpeg"
+// import logo from "../assets/noBGRommateLogo.png"
+// export default function Navbar() {
+//   const [menuOpen, setMenuOpen] = useState(false);
+//   const [data, setData] = useState(null);
+
+  
+// const token=localStorage.getItem("token");
+// const fetchData = async () => {
+//   try {
+//     const token = localStorage.getItem("token");
+
+//     const response = await axios.get(
+//       `${import.meta.env.VITE_API_URL}/api/user/profile`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`
+//         }
+//       }
+//     );
+
+//     // ✅ axios gives data directly
+//     setData(response.data.data);
+
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// useEffect(()=>{
+//   fetchData();
+// },[])
+ 
+
+// const [userRole, setUserRole] = useState(null);
+
+// useEffect(() => {
+//   const token = localStorage.getItem("token");
+
+//   if (token) {
+//     const decoded = jwtDecode(token);
+//     console.log(decoded);
+//     setUserRole(decoded.role);
+//   }
+// }, []);
+// const navLinks = [
+//   { name: "Home", path: "/" },
+//   { name: "Search", path: "/search" },
+
+//   // ✅ show only if owner
+//   ...(userRole === "owner"
+//     ? [{ name: "Owners", path: "/owners" }]
+//     : []),
+
+//   { name: "My Account", path: "/account" },
+// ];
+// const navigate=useNavigate();
+//   const handleLogout = () => {
+//     const confirm = window.confirm("Are you sure you want to logout?");
+//     if (confirm) {
+//       localStorage.removeItem("token");
+//       window.location.reload();
+//       // navigate("/login");
+//     }
+//   };
+//   return (
+//     <nav className="ac-nav">
+//       {/* Logo */}
+//       {/* <div className="ac-nav-logo">The Academic Curator</div> */}
+//       <img src={roommate} alt="" className="ac-nav-logo" >
+      
+//       </img>
+
+
+//       {/* Desktop Links */}
+//       <ul className="ac-nav-links">
+//         {navLinks.map((link) => (
+//           <li key={link.name}>
+//             <NavLink
+//               to={link.path}
+//               className={({ isActive }) =>
+//                 isActive ? "active" : ""
+//               }
+//             >
+//               {link.name}
+//             </NavLink>
+//           </li>
+//         ))}
+//       </ul>
+
+//       {/* Icons + Hamburger */}
+//       <div className="ac-nav-icons">
+//         {/* <span>🔔</span>
+//         <span>♥</span> */}
+//         {/* <NavLink to={"/signup"} className="ac-avatar">S</NavLink> */}
+//          {/* <img src={data?.profileImg} className="ac-avatar" style={{ width: 50, height: 50, borderRadius: "50%" }} /> */}
+//          {
+//   data?.profileImg ? (
+//     <img
+//       src={data.profileImg}
+//       className="ac-avatar"
+//       style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover" }}
+//     />
+//   ) : (
+//     <div
+//       className="ac-avatar"
+//       style={{
+//         width: 50,
+//         height: 50,
+//         borderRadius: "50%",
+//         background: "#4f46e5",
+//         color: "#fff",
+//         display: "flex",
+//         alignItems: "center",
+//         justifyContent: "center",
+//         fontWeight: "600",
+//         fontSize: "18px"
+//       }}
+//     >
+//       {data?.fullName?.charAt(0).toUpperCase() || "🧑‍🎓"}
+//     </div>
+//   )
+// }
+//         {/* <button
+//           onClick={handleLogout}
+//           className="w-20 sm:w-16 rounded-xl
+//   text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 border-red-500 border text-center"
+//         >
+         
+//           Logout
+//         </button> */}
+
+//         {
+//   token ? (
+//     <button
+//       onClick={handleLogout}
+//       className="w-20 sm:w-16 rounded-xl
+//       text-red-500 hover:bg-red-500 hover:text-white
+//       transition-all duration-200 border-red-500 border text-center"
+//     >
+//       Logout
+//     </button>
+//   ) : (
+//     <button
+//       onClick={() => navigate("/login")}
+//       className="w-20 sm:w-16 rounded-xl
+//       text-blue-500 hover:bg-blue-500 hover:text-white
+//       transition-all duration-200 border-blue-500 border text-center"
+//     >
+//       Login
+//     </button>
+//   )
+// }
+//         {/* Hamburger */}
+//         <div
+//           className="ac-hamburger"
+//           onClick={() => setMenuOpen(!menuOpen)}
+//         >
+//           ☰
+//         </div>
+//       </div>
+
+//       {/* Mobile Menu */}
+//       {menuOpen && (
+//         <div className="ac-mobile-menu">
+//           {navLinks.map((link) => (
+//             <NavLink
+//               key={link.name}
+//               to={link.path}
+//               onClick={() => setMenuOpen(false)}
+//               className="ac-mobile-link"
+//             >
+//               {link.name}
+//             </NavLink>
+//           ))}
+//         </div>
+//       )}
+//     </nav>
+//   );
+// }
+
+
+
+
+
+
 import { NavLink } from "react-router-dom";
 import { useState ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
@@ -104,56 +296,55 @@ const navigate=useNavigate();
         <span>♥</span> */}
         {/* <NavLink to={"/signup"} className="ac-avatar">S</NavLink> */}
          {/* <img src={data?.profileImg} className="ac-avatar" style={{ width: 50, height: 50, borderRadius: "50%" }} /> */}
-         {
-  data?.profileImg ? (
-    <img
-      src={data.profileImg}
-      className="ac-avatar"
-      style={{ width: 50, height: 50, borderRadius: "50%", objectFit: "cover" }}
-    />
-  ) : (
-    <div
-      className="ac-avatar"
-      style={{
-        width: 50,
-        height: 50,
-        borderRadius: "50%",
-        background: "#4f46e5",
-        color: "#fff",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontWeight: "600",
-        fontSize: "18px"
-      }}
-    >
-      {data?.fullName?.charAt(0).toUpperCase() || "🧑‍🎓"}
-    </div>
-  )
-}
-        {/* <button
-          onClick={handleLogout}
-          className="w-20 sm:w-16 rounded-xl
-  text-red-500 hover:bg-red-500 hover:text-white transition-all duration-200 border-red-500 border text-center"
-        >
-         
-          Logout
-        </button> */}
-
-        {
+ {
   token ? (
-    <button
-      onClick={handleLogout}
-      className="w-20 sm:w-16 rounded-xl
-      text-red-500 hover:bg-red-500 hover:text-white
-      transition-all duration-200 border-red-500 border text-center"
-    >
-      Logout
-    </button>
+    <>
+      {
+        data?.profileImg ? (
+          <img
+            src={data.profileImg}
+            className="ac-avatar"
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: "50%",
+              objectFit: "cover"
+            }}
+          />
+        ) : (
+          <div
+            className="ac-avatar"
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: "50%",
+              background: "#4f46e5",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: "600",
+              fontSize: "18px"
+            }}
+          >
+            {data?.fullName?.charAt(0).toUpperCase() || "🧑‍🎓"}
+          </div>
+        )
+      }
+
+      <button
+        onClick={handleLogout}
+        className="w-20 sm:w-16 rounded-sm
+        text-red-500 hover:bg-red-500 hover:text-white
+        transition-all duration-200 border-red-500 border text-center"
+      >
+        Logout
+      </button>
+    </>
   ) : (
     <button
       onClick={() => navigate("/login")}
-      className="w-20 sm:w-16 rounded-xl
+      className="w-20 sm:w-16 rounded-sm
       text-blue-500 hover:bg-blue-500 hover:text-white
       transition-all duration-200 border-blue-500 border text-center"
     >
