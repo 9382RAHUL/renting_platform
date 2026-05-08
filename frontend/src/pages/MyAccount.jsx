@@ -616,38 +616,56 @@ const navigate=useNavigate();
               userRole==="student"?(
                 <>
                    <div className="profile-card">
-              <div style={{ position: "relative", flexShrink: 0 }}>
-                <img
-                  src={
-                    avatar || "https://randomuser.me/api/portraits/men/32.jpg"
-                  }
-                  style={{
-                    width: isMobile ? 70 : 90,
-                    height: isMobile ? 70 : 90,
-                    borderRadius: 14,
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                  alt="Rahul Modak"
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: -8,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: "#10b981",
-                    color: "#fff",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    padding: "3px 8px",
-                    borderRadius: 20,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  ✓ VERIFIED
-                </div>
-              </div>
+             <div style={{ position: "relative", flexShrink: 0 }}>
+  {avatar ? (
+    <img
+      src={avatar}
+      style={{
+        width: isMobile ? 70 : 90,
+        height: isMobile ? 70 : 90,
+        borderRadius: 14,
+        objectFit: "cover",
+        display: "block",
+      }}
+      alt={name}
+    />
+  ) : (
+    <div
+      style={{
+        width: isMobile ? 70 : 90,
+        height: isMobile ? 70 : 90,
+        borderRadius: 14,
+        background: "#4f46e5",
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: isMobile ? 28 : 36,
+        fontWeight: 700,
+      }}
+    >
+      {form.fullName?.charAt(0).toUpperCase()}
+    </div>
+  )}
+
+  <div
+    style={{
+      position: "absolute",
+      bottom: -8,
+      left: "50%",
+      transform: "translateX(-50%)",
+      background: "#10b981",
+      color: "#fff",
+      fontSize: 10,
+      fontWeight: 700,
+      padding: "3px 8px",
+      borderRadius: 20,
+      whiteSpace: "nowrap",
+    }}
+  >
+    ✓ VERIFIED
+  </div>
+</div>
 
               <div>
                 <h1 className="profile-name">{form.fullName || "Your Name"}</h1>
@@ -670,38 +688,56 @@ const navigate=useNavigate();
               ):(
                 <>
                    <div className="profile-card">
-              <div style={{ position: "relative", flexShrink: 0 }}>
-                <img
-                  src={
-                    avatar || "https://randomuser.me/api/portraits/men/32.jpg"
-                  }
-                  style={{
-                    width: isMobile ? 70 : 90,
-                    height: isMobile ? 70 : 90,
-                    borderRadius: 14,
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                  alt="Rahul Modak"
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: -8,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: "#10b981",
-                    color: "#fff",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    padding: "3px 8px",
-                    borderRadius: 20,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  ✓ VERIFIED
-                </div>
-              </div>
+             <div style={{ position: "relative", flexShrink: 0 }}>
+  {avatar ? (
+    <img
+      src={avatar}
+      style={{
+        width: isMobile ? 70 : 90,
+        height: isMobile ? 70 : 90,
+        borderRadius: 14,
+        objectFit: "cover",
+        display: "block",
+      }}
+      alt={name}
+    />
+  ) : (
+    <div
+      style={{
+        width: isMobile ? 70 : 90,
+        height: isMobile ? 70 : 90,
+        borderRadius: 14,
+        background: "#4f46e5",
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: isMobile ? 28 : 36,
+        fontWeight: 700,
+      }}
+    >
+      {form.fullName?.charAt(0).toUpperCase()}
+    </div>
+  )}
+
+  <div
+    style={{
+      position: "absolute",
+      bottom: -8,
+      left: "50%",
+      transform: "translateX(-50%)",
+      background: "#10b981",
+      color: "#fff",
+      fontSize: 10,
+      fontWeight: 700,
+      padding: "3px 8px",
+      borderRadius: 20,
+      whiteSpace: "nowrap",
+    }}
+  >
+    ✓ VERIFIED
+  </div>
+</div>
 
               <div>
                 <h1 className="profile-name">{form.fullName || "Your Name"}</h1>
