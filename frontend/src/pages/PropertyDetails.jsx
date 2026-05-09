@@ -129,14 +129,60 @@ export default function PropertyDetails() {
 
   const px = isMobile ? "16px" : isTablet ? "20px" : "32px";
 
-  const handleWhatsApp = () => {
-    const phone = `91${listing.owner_phone}`;
-    const message = encodeURIComponent(
-      `Hi ${listing.owner_name}, I'm interested in your listing priced at ₹${listing.price}.`,
+  // const handleWhatsApp = () => {
+  //   const phone = `91${listing.owner_phone}`;
+  //   const message = encodeURIComponent(
+  //     `Hi ${listing.owner_name}, I'm interested in your listing priced at ₹${listing.price}.`,
+  //   );
+
+  //   window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  // };
+
+  const handleWhatsApp = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    // 🔒 Require login first
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    // ✅ Track inquiry
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/inquiry/track-whatsapp`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          listingId: listing._id,
+        }),
+      }
     );
 
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
-  };
+    const data = await res.json();
+
+    if (res.ok) {
+      const phone = `91${data.phone}`;
+
+      const message = encodeURIComponent(
+        `Hi ${listing.owner_name}, I'm interested in your listing priced at ₹${listing.price}.`
+      );
+
+      // ✅ Open WhatsApp after tracking
+      window.open(
+        `https://wa.me/${phone}?text=${message}`,
+        "_blank"
+      );
+    }
+
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <>
