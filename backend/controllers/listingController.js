@@ -1,3 +1,4 @@
+import UserData from "../models/UserData.js";
 // controllers/listingController.js
 import cloudinary from "../config/cloudinary.js";
 import Listing from "../models/Listing.js";
@@ -385,21 +386,48 @@ export const getAllData = async (req, res) => {
   }
 };
 // GET single listing by ID
+// export const getListingById = async (req, res) => {
+//   try {
+//     const listing = await Listing.findById(req.params.id);
+
+//     if (!listing) {
+//       return res.status(404).json({ error: "Listing not found" });
+//     }
+
+//     res.json(listing);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 export const getListingById = async (req, res) => {
   try {
-    const listing = await Listing.findById(req.params.id);
+    // ✅ get listing
+    const listing = await Listing.findById(req.params.id).lean();
 
     if (!listing) {
-      return res.status(404).json({ error: "Listing not found" });
+      return res.status(404).json({
+        error: "Listing not found",
+      });
     }
 
+    // ✅ get owner profile using owner id
+    const ownerProfile = await UserData.findOne({
+      user: listing.owner,
+    });
+
+    // ✅ attach owner profile manually
+    listing.ownerProfile = ownerProfile;
+
     res.json(listing);
+
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log(error);
+
+    res.status(500).json({
+      error: error.message,
+    });
   }
 };
-
-
 export const updateListing = async (req, res) => {
   try {
     const userId = req.user.id;
