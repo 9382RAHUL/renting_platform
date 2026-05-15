@@ -176,13 +176,13 @@ function CTABanner() {
             <div className="desc">Average for our partners</div>
           </div>
         </div>
-        <div className="ac-cta-stat">
+        {/* <div className="ac-cta-stat">
           <span className="ac-cta-stat-icon">💳</span>
           <div className="ac-cta-stat-text">
             <div className="val">Prompt Payments</div>
             <div className="desc">Automated rental collection</div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
