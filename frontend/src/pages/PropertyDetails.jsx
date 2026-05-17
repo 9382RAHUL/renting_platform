@@ -245,7 +245,7 @@ export default function PropertyDetails() {
         .pd-root {
           background-color: #f0edf8;
           min-height: 100vh;
-          font-family: 'Georgia', serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .pd-toast {
@@ -445,7 +445,7 @@ export default function PropertyDetails() {
           font-weight: 800;
           color: #1a1740;
           letter-spacing: -1px;
-          font-family: sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
         }
         @media (max-width: 639px) { .pd-price-amount { font-size: 26px; } }
 
@@ -460,7 +460,7 @@ export default function PropertyDetails() {
           font-weight: 700;
           font-size: 14px;
           cursor: pointer;
-          font-family: sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           letter-spacing: 0.5px;
           margin-bottom: 8px;
         }

@@ -324,13 +324,9 @@ export default function CreateListing() {
 
   return (
     <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
       <style>{`
         * { box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; }
+        body { margin: 0; }
         input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; }
         input::placeholder { color: #b0adc8; }
           /* TOAST */
@@ -341,7 +337,7 @@ export default function CreateListing() {
     transform: translateX(-50%) translateY(80px);
     background: #3a2f8b;
     color: #fff;
-    font-family: 'Sora', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.9rem;
     font-weight: 500;
     padding: 13px 28px;

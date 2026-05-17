@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
  import { useNavigate } from "react-router-dom";
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+  /* Fonts are loaded globally from frontend/index.html */
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -30,7 +30,7 @@ const styles = `
   .page {
     min-height: 100vh;
     background: var(--bg);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     display: flex;
     flex-direction: column;
   }
@@ -47,7 +47,7 @@ const styles = `
     position: sticky; top: 0; z-index: 10;
   }
   .nav-brand {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 600;
     font-size: 1rem;
     color: var(--primary);
@@ -76,7 +76,7 @@ const styles = `
   }
 
   .headline {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: clamp(2rem, 5vw, 2.7rem);
     line-height: 1.15;
     color: var(--text-dark);
@@ -155,7 +155,7 @@ const styles = `
     background: var(--input-bg);
     border: 2px solid transparent;
     border-radius: var(--radius-input);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.95rem;
     color: var(--text-dark);
     outline: none;
@@ -210,7 +210,7 @@ const styles = `
     color: white;
     border: none;
     border-radius: var(--radius-btn);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.97rem;
     font-weight: 600;
     cursor: pointer;
@@ -282,7 +282,7 @@ const styles = `
   }
   .success-circle svg { width: 28px; height: 28px; color: white; }
   .success-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1.5rem;
     color: var(--text-dark);
   }

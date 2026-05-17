@@ -55,13 +55,13 @@ export default function LoginPage() {
     <>
     
     
-     <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+      <style>{`
+        /* Fonts are loaded globally from frontend/index.html */
  
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
         .login-root {
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           min-height: 100vh;
           display: flex;
           flex-direction: column;
@@ -117,7 +117,7 @@ export default function LoginPage() {
         }
  
         .left-title {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: clamp(2rem, 3vw, 2.8rem);
           font-weight: 800;
           color: #ffffff;
@@ -178,7 +178,7 @@ export default function LoginPage() {
  
         /* ── HEADER ── */
         .form-title {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: clamp(2rem, 4vw, 2.6rem);
           font-weight: 700;
           color: #1a1a2e;
@@ -238,7 +238,7 @@ export default function LoginPage() {
           border: none;
           outline: none;
           background: transparent;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 0.9rem;
           color: #1f2937;
           min-width: 0;
@@ -326,7 +326,7 @@ export default function LoginPage() {
           color: #fff;
           border: none;
           border-radius: 12px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 0.95rem;
           font-weight: 600;
           cursor: pointer;
@@ -380,7 +380,7 @@ export default function LoginPage() {
           background: #fff;
           border: 1.5px solid #e5e7eb;
           border-radius: 12px;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 0.875rem;
           font-weight: 500;
           color: #374151;
@@ -417,7 +417,7 @@ export default function LoginPage() {
           cursor: pointer;
           background: none;
           border: none;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 0.875rem;
           transition: color 0.2s;
         }
@@ -448,7 +448,7 @@ export default function LoginPage() {
         }
  
         .footer-brand {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 0.95rem;
           font-weight: 700;
           color: #1a1a2e;
@@ -468,7 +468,7 @@ export default function LoginPage() {
           transition: color 0.2s;
           background: none;
           border: none;
-          font-family: 'DM Sans', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
         }
  
         .footer-link:hover { color: #6366f1; }

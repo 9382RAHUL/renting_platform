@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  /* Fonts are loaded globally from frontend/index.html */
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,7 +26,7 @@ const styles = `
   }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     background: var(--bg);
     min-height: 100vh;
     color: var(--text-dark);
@@ -51,7 +51,7 @@ const styles = `
     background: transparent;
   }
   .navbar-brand {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     font-size: 1.08rem;
     color: var(--text-dark);
@@ -98,7 +98,7 @@ const styles = `
     transition: width 0.5s ease;
   }
   .progress-label {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.82rem;
     font-weight: 600;
     color: var(--text-mid);
@@ -107,7 +107,7 @@ const styles = `
 
   /* HEADING */
   .page-title {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: clamp(2rem, 6vw, 2.7rem);
     font-weight: 800;
     color: var(--text-dark);
@@ -164,7 +164,7 @@ const styles = `
     position: absolute; inset: 0; opacity: 0; cursor: pointer;
   }
   .avatar-info h3 {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.97rem;
     font-weight: 600;
     color: var(--text-dark);
@@ -183,7 +183,7 @@ const styles = `
     font-weight: 500;
     color: var(--text-dark);
     margin-bottom: 8px;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
   .field-input {
     width: 100%;
@@ -192,7 +192,7 @@ const styles = `
     border-radius: var(--radius-sm);
     padding: 13px 16px;
     font-size: 0.93rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     color: var(--text-dark);
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
@@ -239,7 +239,7 @@ const styles = `
     border-radius: var(--radius-sm);
     padding: 13px 40px 13px 16px;
     font-size: 0.93rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     color: var(--text-dark);
     outline: none;
     appearance: none;
@@ -271,7 +271,7 @@ const styles = `
     border-radius: var(--radius-sm);
     padding: 13px 40px 13px 16px;
     font-size: 0.93rem;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     color: var(--text-dark);
     outline: none;
     appearance: none;
@@ -299,7 +299,7 @@ const styles = `
     margin-bottom: 14px;
   }
   .budget-value {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
     font-size: 1rem;
     color: var(--primary-light);
@@ -356,7 +356,7 @@ const styles = `
     border-radius: var(--radius);
     background: var(--primary-btn);
     color: #fff;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1rem;
     font-weight: 600;
     border: none;
@@ -379,7 +379,7 @@ const styles = `
     background: none;
     border: none;
     cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     transition: color 0.2s;
     padding: 4px;
   }
@@ -410,7 +410,7 @@ const styles = `
     flex-shrink: 0;
   }
   .verified-text h4 {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.97rem;
     font-weight: 700;
     color: #0e4d37;
@@ -438,7 +438,7 @@ const styles = `
     transform: translateX(-50%) translateY(80px);
     background: var(--primary);
     color: #fff;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.9rem;
     font-weight: 500;
     padding: 13px 28px;

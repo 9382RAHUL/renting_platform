@@ -5,6 +5,10 @@
 /* @tailwind base;
 @tailwind components; */
 @tailwind utilities;
+/* Global font for the entire app */
+html, body, #root {
+   font-family: 'Plus Jakarta Sans', sans-serif;
+}
 /* ─────────────────────────────────────────────
    Academic Curator — Global Styles
    Tailwind is the primary utility layer.

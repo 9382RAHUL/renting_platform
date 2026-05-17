@@ -1,7 +1,7 @@
 import { useState } from "react";
  import { useNavigate } from "react-router-dom";
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap');
+  /* Fonts are loaded globally from frontend/index.html */
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,7 +28,7 @@ const styles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     padding: 32px 16px;
     position: relative;
     overflow: hidden;
@@ -83,7 +83,7 @@ const styles = `
   .logo-wrap svg { width: 30px; height: 30px; color: var(--primary); }
 
   .headline {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: clamp(2rem, 4vw, 2.75rem);
     line-height: 1.15;
     color: var(--text-dark);
@@ -151,7 +151,7 @@ const styles = `
   }
 
   .card-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1.9rem;
     font-weight: 700;
     color: var(--text-dark);
@@ -193,7 +193,7 @@ const styles = `
     background: var(--input-bg);
     border: 2px solid transparent;
     border-radius: var(--radius-input);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.95rem;
     color: var(--text-dark);
     outline: none;
@@ -212,7 +212,7 @@ const styles = `
     color: white;
     border: none;
     border-radius: var(--radius-btn);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 0.97rem;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -261,7 +261,7 @@ const styles = `
   }
   .success-icon svg { width: 30px; height: 30px; color: white; }
   .success-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 1.5rem;
     color: var(--text-dark);
   }

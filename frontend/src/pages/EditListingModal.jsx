@@ -80,10 +80,6 @@ export default function EditListingModal({ editData, setEditData, onUpdate }) {
 
   return (
     <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
       <div style={overlayStyle}>
         <div style={modalStyle}>
           <h2 style={{ fontSize: 24, fontWeight: 800, color: "#1a1740", margin: "0 0 8px", letterSpacing: "-0.5px" }}>
