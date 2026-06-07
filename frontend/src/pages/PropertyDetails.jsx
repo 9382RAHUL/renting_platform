@@ -620,7 +620,7 @@ export default function PropertyDetails() {
                     display: "block",
                   }}
                 />
-                {i === 2 && (
+                {/* {i === 2 && (
                   <div
                     style={{
                       position: "absolute",
@@ -641,7 +641,7 @@ export default function PropertyDetails() {
                   >
                     ⊞ View all 24 photos
                   </div>
-                )}
+                )} */}
               </div>
             ))}
           </div>
