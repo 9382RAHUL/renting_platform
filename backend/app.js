@@ -17,9 +17,20 @@ const app = express();
 //   ],
 //   credentials: true
 // }));
-app.use(cors({
-  origin: "*",   // 🔥 TEMP fix for testing
-}));
+// app.use(cors({
+//   origin: "*",   // 🔥 TEMP fix for testing
+// }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://www.rommate.in",
+      "https://rommate.in"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 // app.use(cors({
 //   origin: "*"
 // }));
