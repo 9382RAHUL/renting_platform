@@ -172,7 +172,7 @@ user.resetPasswordToken = hashedToken;
 
   await user.save();
 
-const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+const resetUrl = `https://www.rommate.in/reset-password/${resetToken}`;
 
   // ✅ email transporter
   const transporter = nodemailer.createTransport({
