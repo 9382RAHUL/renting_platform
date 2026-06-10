@@ -31,6 +31,13 @@ app.use(
     credentials: true,
   })
 );
+app.options("*", cors());
+
+app.get("/cors-test", (req, res) => {
+  res.json({
+    message: "new deployment working"
+  });
+});
 // app.use(cors({
 //   origin: "*"
 // }));
