@@ -338,7 +338,7 @@ const navigate = useNavigate();
       },
       body: JSON.stringify({ email }),
     });
-
+     console.log("API URL:", import.meta.env.VITE_API_URL);
     const data = await res.json();
 
     if (!res.ok) {
@@ -348,9 +348,11 @@ const navigate = useNavigate();
     setSent(true); // ✅ show success UI
   } catch (err) {
     alert(err.message); // ❌ show error
+  }finally{
+    setLoading(false);
   }
 
-  setLoading(false);
+  
 };
   return (
     <>
