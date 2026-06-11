@@ -207,11 +207,11 @@ export default function Navbar() {
   const [data, setData] = useState(null);
 
   
-
+const token=localStorage.getItem("token");
 const fetchData = async () => {
   try {
     const token = localStorage.getItem("token");
-    if (!token) return;
+
     const response = await axios.get(
       `${import.meta.env.VITE_API_URL}/api/user/profile`,
       {
