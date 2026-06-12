@@ -399,7 +399,7 @@ const handleSubmit = async () => {
 
         {/* NAV */}
         <nav className="nav">
-          <span className="nav-brand">Academic Curator</span>
+          <span className="nav-brand">Rommate</span>
           <button className="nav-help" title="Help">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="12" cy="12" r="10"/>
