@@ -393,7 +393,7 @@ const navigate = useNavigate();
 
           {/* ── RIGHT CARD ── */}
           <div className="card">
-            <p className="brand-label">Academic Curator</p>
+            <p className="brand-label">Rommate</p>
 
             {!sent ? (
               <>
@@ -402,7 +402,7 @@ const navigate = useNavigate();
                   Enter the email address associated with your account and we'll send you a link to reset your password.
                 </p>
 
-                <label className="field-label" htmlFor="uni-email">University Email</label>
+                <label className="field-label" htmlFor="uni-email"> Email</label>
                 <div className="input-wrap">
                   <svg className="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <rect x="2" y="4" width="20" height="16" rx="3"/>
@@ -457,7 +457,7 @@ const navigate = useNavigate();
           </div>
         </div>
 
-        <footer className="footer">© 2024 Academic Curator. All rights reserved.</footer>
+        <footer className="footer">© 2024 Rommate. All rights reserved.</footer>
 
         <button className="help-btn" title="Help">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
