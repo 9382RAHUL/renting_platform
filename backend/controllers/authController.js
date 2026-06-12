@@ -5,6 +5,8 @@ import nodemailer from "nodemailer";
 // import User from "../models/User.js";
 import User from "../models/User.js";
 import UserData from "../models/UserData.js";
+import { Resend } from 'resend';
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const signup = async (req, res) => {
   try {
@@ -147,58 +149,106 @@ export const getUser = async (req, res) => {
 
 
 //FORGOT PASSWORD API
+// export const forgotPassword = async (req, res) => {
+//   const { email } = req.body;
+
+//   // ✅ get user
+//   const user = await User.findOne({ email });
+//   if (!user) {
+//     return res.status(404).json({ error: "User not found" });
+//   }
+
+//   // ✅ generate token
+// const resetToken = crypto.randomBytes(32).toString("hex");
+// console.log( "Reset Token"+resetToken);
+
+// const hashedToken = crypto
+//   .createHash("sha256")
+//   .update(resetToken)
+//   .digest("hex");
+
+//   console.log("Hashed Password"+ hashedToken);
+
+// user.resetPasswordToken = hashedToken; 
+//   user.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+
+//   await user.save();
+
+// const resetUrl = `https://www.rommate.in/reset-password/${resetToken}`;
+
+//   // ✅ email transporter
+//   const transporter = nodemailer.createTransport({
+//     // service: "gmail",
+//   host: "smtp.gmail.com",
+//   port: 587,          // ✅ try 587 instead of 465
+//   secure: false,      // ✅ false for 587
+//   auth: {
+//   user: process.env.EMAIL_USER,
+//   pass: process.env.EMAIL_PASS,
+// },
+//   });
+
+//   // ✅ send mail
+//   await transporter.sendMail({
+//     to: user.email,
+//     subject: "Password Reset",
+//     html: `
+//       <p>Click below to reset your password:</p>
+//       <a href="${resetUrl}">${resetUrl}</a>
+//     `,
+//   });
+
+//   res.json({ message: "Reset link sent to email" });
+// };
+
 export const forgotPassword = async (req, res) => {
-  const { email } = req.body;
+  try {
+    const { email } = req.body;
 
-  // ✅ get user
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(404).json({ error: "User not found" });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const hashedToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+    await user.save();
+
+    const resetUrl = `https://www.rommate.in/reset-password/${resetToken}`;
+
+    await resend.emails.send({
+      from: "onboarding@resend.dev", // ⏳ change to "noreply@rommate.in" after domain verified
+      to: "rommate4u@gmail.com",     // ⚠️ hardcoded YOUR email for testing (sandbox restriction)
+      subject: "Password Reset – Rommate",
+      html: `
+        <div style="font-family:sans-serif; max-width:480px; margin:auto;">
+          <h2>Reset Your Password</h2>
+          <p>This link expires in <strong>10 minutes</strong>.</p>
+          <a href="${resetUrl}"
+             style="display:inline-block; padding:12px 24px; background:#3d3899;
+                    color:white; border-radius:8px; text-decoration:none; font-weight:600;">
+            Reset Password
+          </a>
+          <p style="color:#888; font-size:13px; margin-top:16px;">
+            If you didn't request this, ignore this email.
+          </p>
+        </div>
+      `,
+    });
+
+    res.json({ message: "Reset link sent to email" });
+
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    res.status(500).json({ error: "Failed to send reset email. Please try again." });
   }
-
-  // ✅ generate token
-const resetToken = crypto.randomBytes(32).toString("hex");
-console.log( "Reset Token"+resetToken);
-
-const hashedToken = crypto
-  .createHash("sha256")
-  .update(resetToken)
-  .digest("hex");
-
-  console.log("Hashed Password"+ hashedToken);
-
-user.resetPasswordToken = hashedToken; 
-  user.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
-
-  await user.save();
-
-const resetUrl = `https://www.rommate.in/reset-password/${resetToken}`;
-
-  // ✅ email transporter
-  const transporter = nodemailer.createTransport({
-    // service: "gmail",
-  host: "smtp.gmail.com",
-  port: 587,          // ✅ try 587 instead of 465
-  secure: false,      // ✅ false for 587
-  auth: {
-  user: process.env.EMAIL_USER,
-  pass: process.env.EMAIL_PASS,
-},
-  });
-
-  // ✅ send mail
-  await transporter.sendMail({
-    to: user.email,
-    subject: "Password Reset",
-    html: `
-      <p>Click below to reset your password:</p>
-      <a href="${resetUrl}">${resetUrl}</a>
-    `,
-  });
-
-  res.json({ message: "Reset link sent to email" });
 };
-
 //RESET PASSWORD API
 export const resetPassword = async (req, res) => {
   const token = req.params.token;
