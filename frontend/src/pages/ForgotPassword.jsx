@@ -457,7 +457,7 @@ const navigate = useNavigate();
           </div>
         </div>
 
-        <footer className="footer">© 2024 Rommate. All rights reserved.</footer>
+        <footer className="footer">© 2026 Rommate. All rights reserved.</footer>
 
         <button className="help-btn" title="Help">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
