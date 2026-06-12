@@ -550,7 +550,7 @@ const handleSubmit = async () => {
 
         {/* FOOTER */}
         <footer className="footer">
-          <span className="footer-copy">© 2024 Academic Curator. All rights reserved.</span>
+          <span className="footer-copy">© 2026 Rommate. All rights reserved.</span>
           <div className="footer-links">
             <a href="#">Privacy Policy</a>
             <a href="#">Terms of Service</a>
