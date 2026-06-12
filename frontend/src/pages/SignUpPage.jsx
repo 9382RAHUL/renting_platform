@@ -253,7 +253,7 @@
 //             <a key={link} href="#" style={{ fontSize: 13, color: "#6b7280", textDecoration: "none" }}>{link}</a>
 //           ))}
 //         </div>
-//         <span style={{ fontSize: 12, color: "#9ca3af" }}>© 2024 The Academic Curator. All rights reserved.</span>
+//         <span style={{ fontSize: 12, color: "#9ca3af" }}>© 2026 The Academic Curator. All rights reserved.</span>
 //       </footer>
 
 //     </div>
@@ -604,7 +604,7 @@ export default function SignupPage() {
               <a key={link} href="#" style={{ fontSize: 13, color: "#6b7280", textDecoration: "none" }}>{link}</a>
             ))}
           </div>
-          <span style={{ fontSize: 12, color: "#9ca3af" }}>© 2024 Rommate. All rights reserved.</span>
+          <span style={{ fontSize: 12, color: "#9ca3af" }}>© 2026 Rommate. All rights reserved.</span>
         </footer>
 
       </div>
@@ -841,7 +841,7 @@ export default function SignupPage() {
 
 //       {/* FOOTER */}
 //       <footer className="py-8 text-center text-gray-500">
-//         © 2024 The Academic Curator
+//         © 2026 The Academic Curator
 //       </footer>
 //     </div>
 //   );

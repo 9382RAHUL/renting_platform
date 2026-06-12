@@ -45,7 +45,7 @@ export default function MainFooter() {
       </div>
 
       <div className="ac-footer-bottom">
-        <span>© 2024 Rommate. Premium Student Living in Kolkata.</span>
+        <span>© 2026 Rommate. Premium Student Living in Kolkata.</span>
       </div>
     </footer>
   );

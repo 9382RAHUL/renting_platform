@@ -1062,7 +1062,7 @@ const handleUpdate = async (form) => {
                 </button>
               </div>
               <p className="text-xs text-[#5c5680]">
-                © 2024 The Academic Curator. Premium Student Living in Kolkata.
+                © 2026 The Academic Curator. Premium Student Living in Kolkata.
               </p>
             </div>
           </div>

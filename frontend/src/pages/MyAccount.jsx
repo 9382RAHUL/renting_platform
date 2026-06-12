@@ -14,7 +14,7 @@ const sidebarLinks = [
 
 const tags = [
   "Economics Major",
-  "Fall 2024",
+  "Fall 2026",
   "Budget: ₹12k/mo",
   "Quiet Environment",
 ];
@@ -23,7 +23,7 @@ const applicationSteps = [
   {
     id: 1,
     label: "Application Submitted",
-    date: "Aug 3, 2024",
+    date: "Aug 3, 2026",
     done: true,
     active: false,
     note: null,
@@ -31,7 +31,7 @@ const applicationSteps = [
   {
     id: 2,
     label: "Document Verification",
-    date: "Aug 5, 2024",
+    date: "Aug 5, 2026",
     done: true,
     active: false,
     note: null,
@@ -39,7 +39,7 @@ const applicationSteps = [
   {
     id: 3,
     label: "Landlord Review",
-    date: "Aug 7, 2024",
+    date: "Aug 7, 2026",
     done: false,
     active: true,
     note: "The landlord has viewed your profile. A response is expected within 48 hours.",
@@ -948,7 +948,7 @@ const navigate=useNavigate();
               Rommate
             </div>
             <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 4 }}>
-              © 2024 ROMMATE. CURATING INTELLECTUAL GROWTH.
+              © 2026 ROMMATE. CURATING INTELLECTUAL GROWTH.
             </div>
           </div>
           <div className="footer-links">

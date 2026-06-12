@@ -665,7 +665,7 @@ export default function LoginPage() {
               <button key={l} className="footer-link" type="button">{l}</button>
             ))}
           </div>
-          <span className="footer-copy">© 2024 Rommate. All rights reserved.</span>
+          <span className="footer-copy">© 2026 Rommate. All rights reserved.</span>
         </footer>
       </div>
     </>

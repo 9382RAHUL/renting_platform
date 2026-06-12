@@ -477,7 +477,7 @@ export default function UserData() {
     fullName: "",
     university: "",
     profession: "",
-    passoutYear: "2024",
+    passoutYear: "2026",
     dob: "",
     phoneno: "",
     location: "",
