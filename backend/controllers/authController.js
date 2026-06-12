@@ -223,8 +223,8 @@ export const forgotPassword = async (req, res) => {
     const resetUrl = `https://www.rommate.in/reset-password/${resetToken}`;
 
     await resend.emails.send({
-      from: "onboarding@resend.dev", // ⏳ change to "noreply@rommate.in" after domain verified
-      to: "rommate4u@gmail.com",     // ⚠️ hardcoded YOUR email for testing (sandbox restriction)
+      from: "noreply@rommate.in", // ⏳ change to "noreply@rommate.in" after domain verified
+      to: user.email,     // ⚠️ hardcoded YOUR email for testing (sandbox restriction)
       subject: "Password Reset – Rommate",
       html: `
         <div style="font-family:sans-serif; max-width:480px; margin:auto;">
