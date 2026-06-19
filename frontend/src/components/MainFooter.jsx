@@ -38,8 +38,8 @@ export default function MainFooter() {
         <div className="ac-footer-col">
           <h4>Stay Connected</h4>
           <div className="ac-footer-social">
-            <div className="ac-footer-social-btn">𝕏</div>
-            <div className="ac-footer-social-btn">✉</div>
+            <a href="https://www.facebook.com/profile.php?id=61589270811816" className="ac-footer-social-btn" style={{fontWeight:"bold"}}>f</a>
+            <a href="https://www.instagram.com/rommate4u/" className="ac-footer-social-btn">✉</a>
           </div>
         </div>
       </div>
